@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Options Pre-Trade Checklist · demystified</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: linear-gradient(150deg, #faf5ee, #f3e9d8);
+    --card: #fffcf7; --border: #e8ddd0;
+    --orange: #F5853F; --orange-dark: #D94F2A;
+    --tan: #8a7560; --ink: #1a1108; --muted: #b0a090;
+    --green: #0D9E6E; --red: #D94F2A;
+    --yes-bg: #e8faf3; --yes-border: #a7f3d0;
+    --no-bg: #fff0ee; --no-border: #fca99b;
+  }
+  body { min-height:100vh; background:var(--bg); font-family:Georgia,serif; color:var(--ink); padding:2rem 1rem 4rem; }
+  .header { max-width:720px; margin:0 auto 2rem; }
+  .header-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; }
+  .wordmark { font-style:italic; font-size:1.5rem; color:var(--ink); letter-spacing:-0.02em; }
+  .logo-box { width:32px; height:32px; background:var(--orange); border-radius:7px; }
+  .divider { height:2px; background:linear-gradient(to right,var(--orange) 0%,transparent 70%); margin-bottom:1.5rem; }
+  h1 { font-size:clamp(1.7rem,5vw,2.5rem); color:var(--ink); letter-spacing:-0.03em; line-height:1.15; margin-bottom:0.4rem; }
+  .subtitle { color:var(--tan); font-size:0.93rem; font-family:system-ui,sans-serif; }
+
+  /* GREEKS */
+  .greeks-section { max-width:720px; margin:0 auto 2rem; }
+  .greeks-label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--tan); margin-bottom:0.65rem; }
+  .greeks-grid { display:grid; grid-template-columns:repeat(3,1fr); border-radius:12px; overflow:hidden; border:1.5px solid var(--border); }
+  .greek-col { display:flex; flex-direction:column; }
+  .greek-col + .greek-col { border-left:1.5px solid var(--border); }
+  .greek-header { background:var(--orange); color:#fff; text-align:center; padding:0.65rem 0.5rem; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
+  .greek-row { background:#fef4ec; text-align:center; padding:0.65rem 0.6rem; font-family:system-ui,sans-serif; font-size:0.82rem; color:var(--ink); border-top:1px solid #f0dfc8; line-height:1.4; }
+  .greek-row.alt { background:#fff8f2; }
+  .greeks-quote { text-align:center; margin-top:0.85rem; font-size:0.82rem; font-style:italic; color:var(--tan); }
+
+  /* CALLOUT */
+  .callout { max-width:720px; margin:0 auto 2rem; background:#fff4eb; border:1.5px solid #fad0a8; border-radius:12px; padding:1rem 1.4rem; display:flex; align-items:flex-start; gap:0.75rem; font-family:system-ui,sans-serif; font-size:0.875rem; color:#6b4b28; line-height:1.55; }
+  .callout-icon { font-size:1.15rem; flex-shrink:0; margin-top:1px; }
+
+  /* QUESTIONS */
+  .questions { max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .q-card { background:var(--card); border:1.5px solid var(--border); border-radius:14px; overflow:hidden; position:relative; transition:border-color 0.2s; }
+  .q-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--orange); transition:background 0.2s; }
+  .q-card.answered-yes::before { background:var(--green); }
+  .q-card.answered-no::before  { background:var(--red); }
+  .q-main { padding:1.4rem 1.4rem 1.2rem 1.6rem; display:flex; align-items:flex-start; gap:1rem; }
+  .q-num { flex-shrink:0; width:32px; height:32px; border-radius:50%; background:#f5ede0; color:var(--orange); font-size:0.85rem; font-weight:700; font-family:system-ui,sans-serif; display:flex; align-items:center; justify-content:center; transition:background 0.2s,color 0.2s; margin-top:1px; }
+  .q-num.answered-yes { background:var(--yes-bg); color:var(--green); }
+  .q-num.answered-no  { background:var(--no-bg);  color:var(--red); }
+  .q-body { flex:1; }
+  .q-hint { display:inline-block; font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tan); margin-bottom:0.35rem; }
+  .q-text { font-size:1.08rem; font-weight:700; color:var(--ink); line-height:1.3; margin-bottom:0.5rem; }
+  .q-note { font-family:system-ui,sans-serif; font-size:0.8rem; color:var(--tan); font-style:italic; }
+
+  /* DIRECTION (Q1) */
+  .direction-selector { display:flex; gap:0.6rem; margin-top:1rem; }
+  .btn-direction { flex:1; max-width:130px; padding:0.55rem 0.5rem; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--tan); transition:all 0.15s; }
+  .btn-direction:hover { border-color:var(--orange); color:var(--orange); }
+  .btn-direction.active-bull { background:var(--yes-bg); border-color:var(--green); color:var(--green); }
+  .btn-direction.active-bear { background:var(--no-bg);  border-color:var(--red);   color:var(--red); }
+  .contract-result { margin-top:0.9rem; display:none; align-items:center; gap:0.6rem; padding:0.75rem 1rem; border-radius:10px; font-family:system-ui,sans-serif; font-size:0.85rem; font-weight:600; animation:fadeSlide 0.2s ease; }
+  .contract-result.show { display:flex; }
+  .contract-result.bull { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
+  .contract-result.bear { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
+  .type-badge { font-size:1rem; font-weight:800; padding:0.2rem 0.8rem; border-radius:6px; letter-spacing:0.06em; }
+  .bull .type-badge { background:#0D9E6E; color:#fff; }
+  .bear .type-badge { background:#D94F2A; color:#fff; }
+
+  /* INPUTS */
+  .input-row { display:flex; align-items:flex-end; gap:0.75rem; margin-top:1rem; flex-wrap:wrap; }
+  .input-group { display:flex; flex-direction:column; gap:0.3rem; }
+  .input-group label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--tan); }
+  .num-input-wrap { display:flex; border:1.5px solid var(--border); border-radius:8px; overflow:hidden; background:#fffcf7; }
+  .num-prefix { padding:0.5rem 0.7rem; background:#f5ede0; color:var(--tan); font-size:0.85rem; font-weight:600; font-family:system-ui,sans-serif; }
+  .num-input { border:none; outline:none; background:transparent; padding:0.5rem 0.65rem; font-size:0.95rem; font-family:Georgia,serif; color:var(--ink); width:90px; }
+  .num-input::-webkit-inner-spin-button { -webkit-appearance:none; }
+  .eval-tag { display:none; align-items:center; gap:0.4rem; padding:0.45rem 0.85rem; border-radius:999px; font-family:system-ui,sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; white-space:nowrap; margin-bottom:2px; }
+  .eval-tag.show { display:flex; }
+  .eval-tag.pass { background:var(--yes-bg); color:var(--green); border:1px solid var(--yes-border); }
+  .eval-tag.fail { background:var(--no-bg);  color:var(--red);   border:1px solid var(--no-border); }
+
+  /* YES/NO */
+  .q-actions { display:flex; gap:0.6rem; margin-top:1rem; }
+  .btn-yn { flex:1; max-width:100px; padding:0.5rem 0; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--tan); transition:all 0.15s; }
+  .btn-yn:hover { border-color:var(--orange); color:var(--orange); }
+  .btn-yn.active-yes { background:var(--yes-bg); border-color:var(--green); color:var(--green); }
+  .btn-yn.active-no  { background:var(--no-bg);  border-color:var(--red);   color:var(--red); }
+
+  /* RISK DISPLAY */
+  .risk-display { margin-top:0.75rem; padding:0.75rem 1rem; border-radius:10px; font-family:system-ui,sans-serif; font-size:0.82rem; display:none; animation:fadeSlide 0.2s ease; }
+  .risk-display.show { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .risk-display.pass { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
+  .risk-display.fail { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
+  .risk-pct { font-size:1.4rem; font-family:Georgia,serif; font-weight:700; }
+
+  /* FEEDBACK */
+  .q-feedback { margin:0 1.4rem 1.4rem 1.6rem; border-radius:10px; padding:1rem 1.15rem; font-family:system-ui,sans-serif; font-size:0.83rem; line-height:1.6; display:none; animation:fadeSlide 0.22s ease; }
+  .q-feedback.show { display:block; }
+  .q-feedback.yes-fb { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
+  .q-feedback.no-fb  { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
+  .fb-title { font-weight:700; margin-bottom:0.3rem; font-size:0.88rem; }
+
+  @keyframes fadeSlide { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+
+  /* SCORE */
+  .score-panel { max-width:720px; margin:2rem auto 0; border-radius:14px; padding:1.8rem 2rem; display:none; animation:fadeSlide 0.3s ease; }
+  .score-panel.show { display:block; }
+  .score-panel.all-pass { background:linear-gradient(130deg,#052e16,#064e3b); }
+  .score-panel.partial  { background:linear-gradient(130deg,#1a1108,#2c1d0e); }
+  .score-panel.all-fail { background:linear-gradient(130deg,#3b0606,#1a0808); }
+  .score-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
+  .score-label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:#9a7a55; margin-bottom:0.3rem; }
+  .score-panel.all-pass .score-label { color:#6ee7b7; }
+  .score-num { font-size:2.5rem; font-weight:700; color:#fff; line-height:1; }
+  .score-sub { font-family:system-ui,sans-serif; font-size:0.78rem; color:#9a7a55; margin-top:0.2rem; }
+  .score-panel.all-pass .score-sub { color:#a7f3d0; }
+  .verdict-badge { padding:0.55rem 1.4rem; border-radius:999px; font-family:system-ui,sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.06em; color:#fff; }
+  .badge-pass { background:var(--green); } .badge-warn { background:var(--orange); } .badge-stop { background:var(--red); }
+  .score-bar-wrap { margin-bottom:1.4rem; }
+  .score-bar-label { display:flex; justify-content:space-between; margin-bottom:0.4rem; }
+  .score-bar-label span { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:#9a7a55; }
+  .score-panel.all-pass .score-bar-label span { color:#6ee7b7; }
+  .score-bar-bg { height:7px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; }
+  .score-bar-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
+  .breakdown { display:flex; flex-wrap:wrap; gap:0.5rem; }
+  .bd-pill { font-family:system-ui,sans-serif; font-size:0.72rem; font-weight:600; padding:0.3rem 0.75rem; border-radius:999px; }
+  .bd-yes { background:rgba(13,158,110,0.2); color:#6ee7b7; }
+  .bd-no  { background:rgba(217,79,42,0.2);  color:#fca5a5; }
+  .reset-wrap { max-width:720px; margin:1.5rem auto 0; text-align:center; }
+  .btn-reset { background:none; border:1.5px solid var(--border); border-radius:8px; padding:0.55rem 1.5rem; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--tan); cursor:pointer; transition:all 0.15s; }
+  .btn-reset:hover { border-color:var(--orange); color:var(--orange); }
+  .footer { max-width:720px; margin:2.5rem auto 0; text-align:center; color:var(--muted); font-size:0.7rem; letter-spacing:0.05em; }
+  .footer em { font-style:italic; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span class="wordmark">demystified</span>
+    <div class="logo-box"></div>
+  </div>
+  <div class="divider"></div>
+  <h1>Pre-Trade Checklist</h1>
+  <p class="subtitle">5 questions to ask yourself before buying any options contract.</p>
+</div>
+
+<div class="greeks-section">
+  <div class="greeks-label">📐 The 3 Greeks Beginners Need to Know</div>
+  <div class="greeks-grid">
+    <div class="greek-col">
+      <div class="greek-header">Delta</div>
+      <div class="greek-row">Your direction meter</div>
+      <div class="greek-row alt">Aim for .40 – .60</div>
+    </div>
+    <div class="greek-col">
+      <div class="greek-header">Theta</div>
+      <div class="greek-row">Your time clock</div>
+      <div class="greek-row alt">Lower = better for buyers</div>
+    </div>
+    <div class="greek-col">
+      <div class="greek-header">Vega</div>
+      <div class="greek-row">Your volatility gauge</div>
+      <div class="greek-row alt">Watch before earnings</div>
+    </div>
+  </div>
+  <div class="greeks-quote">"If these three are working in your favor, you're in a strong position."</div>
+</div>
+
+<div class="callout">
+  <span class="callout-icon">📋</span>
+  <span>Work through each question below. Some will ask for your actual numbers — the tool evaluates them automatically. Your score and personalized feedback appear once all five are complete.</span>
+</div>
+
+<div class="questions" id="questions"></div>
+
+<div class="score-panel" id="scorePanel">
+  <div class="score-top">
+    <div>
+      <div class="score-label">Your Score</div>
+      <div class="score-num" id="scoreNum">0 / 5</div>
+      <div class="score-sub" id="scoreSub"></div>
+    </div>
+    <div class="verdict-badge" id="verdictBadge"></div>
+  </div>
+  <div class="score-bar-wrap">
+    <div class="score-bar-label"><span>Readiness</span><span id="scorePct">0%</span></div>
+    <div class="score-bar-bg"><div class="score-bar-fill" id="scoreBar" style="width:0%"></div></div>
+  </div>
+  <div class="breakdown" id="breakdown"></div>
+</div>
+
+<div class="reset-wrap" id="resetWrap" style="display:none">
+  <button class="btn-reset" onclick="resetAll()">↩ Start Over</button>
+</div>
+
+<div class="footer"><em>demystified</em> · for educational purposes only · not financial advice</div>
+
+<script>
+const state = {
+  q1: null,
+  q2delta: '',
+  q3: null,
+  q4theta: '', q4premium: '',
+  q5portfolio: '', q5premium: ''
+};
+
+function getAnswers() {
+  // Q1: just needs a selection
+  const q1 = state.q1 !== null ? true : null;
+
+  // Q2: Delta in .40–.60
+  const d = parseFloat(state.q2delta);
+  const q2 = state.q2delta !== '' && !isNaN(d) ? (d >= 0.40 && d <= 0.60) : null;
+
+  // Q3: yes/no
+  const q3 = state.q3;
+
+  // Q4: daily theta decay < 2% of premium
+  const theta4 = parseFloat(state.q4theta);
+  const prem4  = parseFloat(state.q4premium);
+  const q4 = (state.q4theta !== '' && state.q4premium !== '' && !isNaN(theta4) && !isNaN(prem4) && prem4 > 0)
+    ? (Math.abs(theta4) / prem4) * 100 < 2 : null;
+
+  // Q5: premium is 2–5% of portfolio
+  const port5 = parseFloat(state.q5portfolio);
+  const prem5 = parseFloat(state.q5premium);
+  const riskPct5 = (port5 > 0) ? (prem5 / port5) * 100 : null;
+  const q5 = (state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(port5) && !isNaN(prem5) && port5 > 0)
+    ? (riskPct5 >= 2 && riskPct5 <= 5) : null;
+
+  return { q1, q2, q3, q4, q5,
+    d, theta4, prem4,
+    riskPct5: riskPct5 !== null ? riskPct5 : null,
+    dailyPct4: (state.q4theta !== '' && state.q4premium !== '' && !isNaN(theta4) && !isNaN(prem4) && prem4 > 0)
+      ? ((Math.abs(theta4) / prem4) * 100).toFixed(2) : null
+  };
+}
+
+function numCls(pass) {
+  if (pass === null) return 'q-num';
+  return 'q-num ' + (pass ? 'answered-yes' : 'answered-no');
+}
+function cardCls(pass) {
+  if (pass === null) return 'q-card';
+  return 'q-card ' + (pass ? 'answered-yes' : 'answered-no');
+}
+
+function render() {
+  const focusedId = document.activeElement ? document.activeElement.id : null;
+  const cursorPos = (document.activeElement && document.activeElement.selectionStart != null) ? document.activeElement.selectionStart : null;
+  const a = getAnswers();
+  const c = document.getElementById('questions');
+  c.innerHTML = '';
+
+  // ── Q1 ──────────────────────────────────────────────────────────────────
+  const q1pass = state.q1 !== null;
+  const contractType = state.q1 === 'bull' ? 'CALL' : state.q1 === 'bear' ? 'PUT' : null;
+  const q1div = document.createElement('div');
+  q1div.className = q1pass ? 'q-card answered-yes' : 'q-card';
+  q1div.innerHTML = `
+    <div class="q-main">
+      <div class="${q1pass ? 'q-num answered-yes' : 'q-num'}">1</div>
+      <div class="q-body">
+        <span class="q-hint">Direction</span>
+        <div class="q-text">What's my thesis?</div>
+        <div class="q-note">Select your market direction — your contract type will follow automatically.</div>
+        <div class="direction-selector">
+          <button class="btn-direction ${state.q1 === 'bull' ? 'active-bull' : ''}" onclick="setQ1('bull')">📈 Bullish</button>
+          <button class="btn-direction ${state.q1 === 'bear' ? 'active-bear' : ''}" onclick="setQ1('bear')">📉 Bearish</button>
+        </div>
+        ${contractType ? `
+        <div class="contract-result show ${state.q1}">
+          <span>You should be looking at a</span>
+          <span class="type-badge">${contractType}</span>
+          <span>${state.q1 === 'bull' ? 'option — you profit as the stock rises.' : 'option — you profit as the stock falls.'}</span>
+        </div>` : ''}
+      </div>
+    </div>
+    ${q1pass ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">✅ Clear thesis — great start.</div>
+      Knowing your directional conviction before entering is the foundation of every trade. A <strong>${contractType}</strong> gives you the right to ${state.q1 === 'bull' ? 'buy shares at the strike price — your profit grows as the stock rises above it' : 'sell shares at the strike price — your profit grows as the stock falls below it'}. Without a thesis you're gambling on noise.
+    </div>` : ''}
+  `;
+  c.appendChild(q1div);
+
+  // ── Q2 ──────────────────────────────────────────────────────────────────
+  const q2ev = state.q2delta !== '' && !isNaN(a.d);
+  const q2div = document.createElement('div');
+  q2div.className = cardCls(q2ev ? a.q2 : null);
+  q2div.innerHTML = `
+    <div class="q-main">
+      <div class="${numCls(q2ev ? a.q2 : null)}">2</div>
+      <div class="q-body">
+        <span class="q-hint">Greeks · Delta</span>
+        <div class="q-text">Is my Delta between .40 and .60?</div>
+        <div class="q-note">Beginners stay in this range — the sweet spot between probability and cost.</div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Your Delta</label>
+            <div class="num-input-wrap">
+              <span class="num-prefix">Δ</span>
+              <input class="num-input" type="text" inputmode="decimal" placeholder="0.50"
+                id="inp-q2delta" value="${state.q2delta}" oninput="state.q2delta=this.value;render();" style="width:80px" />
+            </div>
+          </div>
+          ${q2ev ? `<span class="eval-tag ${a.q2 ? 'pass' : 'fail'} show">${a.q2 ? '✓ In range (.40–.60)' : a.d < 0.40 ? '✗ Too far OTM' : '✗ High premium ITM'}</span>` : ''}
+        </div>
+      </div>
+    </div>
+    ${q2ev && a.q2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Good Delta range.</div>Your Delta of <strong>${a.d.toFixed(2)}</strong> puts you near at-the-money. This gives your option a solid chance of responding meaningfully to price movement without paying an extreme premium. Deep ITM or far OTM contracts come with traps — this sweet spot keeps your learning curve manageable.</div>` : ''}
+    ${q2ev && !a.q2 ? `<div class="q-feedback no-fb show"><div class="fb-title">⚠️ Delta outside the safe zone for beginners.</div>Your Delta of <strong>${a.d.toFixed(2)}</strong> is ${a.d < 0.40 ? 'below .40 — your contract is out-of-the-money. It needs a large move to become profitable and often expires worthless.' : 'above .60 — you\'re likely paying a high premium for the contract.'} As a beginner, drifting outside .40–.60 significantly changes your risk profile. Reassess before continuing.</div>` : ''}
+  `;
+  c.appendChild(q2div);
+
+  // ── Q3 ──────────────────────────────────────────────────────────────────
+  const q3div = document.createElement('div');
+  q3div.className = cardCls(state.q3);
+  q3div.innerHTML = `
+    <div class="q-main">
+      <div class="${numCls(state.q3)}">3</div>
+      <div class="q-body">
+        <span class="q-hint">Greeks · Time</span>
+        <div class="q-text">Is my expiration 30+ days out?</div>
+        <div class="q-note">Avoid short-dated contracts — Theta decay accelerates sharply in the final weeks.</div>
+        <div class="q-actions">
+          <button class="btn-yn ${state.q3 === true ? 'active-yes' : ''}" onclick="state.q3=true;render()">✓ Yes</button>
+          <button class="btn-yn ${state.q3 === false ? 'active-no' : ''}" onclick="state.q3=false;render()">✗ No</button>
+        </div>
+      </div>
+    </div>
+    ${state.q3 === true  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Enough time in the trade.</div>Giving yourself 30+ days means you're not fighting Theta right out of the gate. Short-dated contracts can lose value rapidly even when the stock moves in your favor — Theta decay accelerates sharply in the final weeks. More time = more room for your thesis to play out.</div>` : ''}
+    ${state.q3 === false ? `<div class="q-feedback no-fb show"><div class="fb-title">🚫 Expiration too soon — high time decay risk.</div>Contracts expiring in under 30 days are the most dangerous for beginners. Theta accelerates dramatically near expiration — your option can lose value fast even if the stock goes your way. Weekly options are particularly unforgiving. Consider rolling to a contract further out in time.</div>` : ''}
+  `;
+  c.appendChild(q3div);
+
+  // ── Q4 ──────────────────────────────────────────────────────────────────
+  const q4ev = state.q4theta !== '' && state.q4premium !== '' && !isNaN(a.theta4) && !isNaN(a.prem4) && a.prem4 > 0;
+  const q4div = document.createElement('div');
+  q4div.className = cardCls(q4ev ? a.q4 : null);
+  q4div.innerHTML = `
+    <div class="q-main">
+      <div class="${numCls(q4ev ? a.q4 : null)}">4</div>
+      <div class="q-body">
+        <span class="q-hint">Greeks · Theta</span>
+        <div class="q-text">Is my Theta manageable?</div>
+        <div class="q-note">Enter your Theta and the premium you paid — the tool calculates your daily decay rate.</div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Theta (per day)</label>
+            <div class="num-input-wrap">
+              <span class="num-prefix">θ</span>
+              <input class="num-input" type="text" inputmode="decimal" placeholder="-0.05"
+                id="inp-q4theta" value="${state.q4theta}" oninput="state.q4theta=this.value;render();" style="width:90px" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Premium Paid ($)</label>
+            <div class="num-input-wrap">
+              <span class="num-prefix">$</span>
+              <input class="num-input" type="text" inputmode="decimal" placeholder="2.00"
+                id="inp-q4prem" value="${state.q4premium}" oninput="state.q4premium=this.value;render();" style="width:90px" />
+            </div>
+          </div>
+          ${q4ev ? `<span class="eval-tag ${a.q4 ? 'pass' : 'fail'} show">${a.q4 ? '✓' : '✗'} ${a.dailyPct4}% / day</span>` : ''}
+        </div>
+      </div>
+    </div>
+    ${q4ev && a.q4  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Theta under control.</div>At <strong>${a.dailyPct4}% per day</strong>, your daily decay is manageable. Knowing your daily cost means no surprises — you can hold the trade without panic-selling due to time decay alone. Stay aware of this number as expiration approaches, since Theta accelerates in the final 30 days.</div>` : ''}
+    ${q4ev && !a.q4 ? `<div class="q-feedback no-fb show"><div class="fb-title">⚠️ Theta is eating your premium too fast.</div>At <strong>${a.dailyPct4}% per day</strong>, time decay is working against you at a punishing pace. Even 5 flat days in the stock can erode a significant portion of your premium — before it has a chance to move in your favor. Consider a contract with more time until expiration.</div>` : ''}
+  `;
+  c.appendChild(q4div);
+
+  // ── Q5 ──────────────────────────────────────────────────────────────────
+  const q5ev = state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(parseFloat(state.q5portfolio)) && !isNaN(parseFloat(state.q5premium)) && parseFloat(state.q5portfolio) > 0;
+  const rp = a.riskPct5;
+  const q5div = document.createElement('div');
+  q5div.className = cardCls(q5ev ? a.q5 : null);
+  const riskMsg = q5ev ? (rp < 2 ? 'Under 2% — conservative, consider sizing up slightly'
+    : rp > 5 ? `${rp.toFixed(1)}% — above the recommended 2–5% cap`
+    : `${rp.toFixed(1)}% — right in the 2–5% sweet spot`) : '';
+  q5div.innerHTML = `
+    <div class="q-main">
+      <div class="${numCls(q5ev ? a.q5 : null)}">5</div>
+      <div class="q-body">
+        <span class="q-hint">Risk Management</span>
+        <div class="q-text">Is my premium within my risk budget?</div>
+        <div class="q-note">We recommend 2–5% of your portfolio per trade. Never risk more than you can afford to lose.</div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Portfolio Size ($)</label>
+            <div class="num-input-wrap">
+              <span class="num-prefix">$</span>
+              <input class="num-input" type="text" inputmode="decimal" placeholder="10000"
+                id="inp-q5port" value="${state.q5portfolio}" oninput="state.q5portfolio=this.value;render();" style="width:105px" />
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Premium Cost ($)</label>
+            <div class="num-input-wrap">
+              <span class="num-prefix">$</span>
+              <input class="num-input" type="text" inputmode="decimal" placeholder="300"
+                id="inp-q5prem" value="${state.q5premium}" oninput="state.q5premium=this.value;render();" style="width:105px" />
+            </div>
+          </div>
+        </div>
+        ${q5ev ? `<div class="risk-display ${a.q5 ? 'pass' : 'fail'} show"><span class="risk-pct">${rp.toFixed(1)}%</span><span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span></div>` : ''}
+      </div>
+    </div>
+    ${q5ev && a.q5  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Risk is sized appropriately.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.</div>` : ''}
+    ${q5ev && !a.q5 ? `<div class="q-feedback no-fb show"><div class="fb-title">${rp < 2 ? '⚠️ Slightly under the 2% minimum — fine for learning.' : '🚫 Risk exceeds the recommended 5% cap.'}</div>${rp < 2 ? `At <strong>${rp.toFixed(1)}%</strong>, you're being conservative — that's perfectly fine when you're learning. Just know that the dollar upside is proportionally small. Our recommended starting range is 2–5% per trade.` : `At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.`}</div>` : ''}
+  `;
+  c.appendChild(q5div);
+
+  // Restore focus after DOM rebuild
+  if (focusedId) {
+    const el = document.getElementById(focusedId);
+    if (el) {
+      el.focus();
+      if (cursorPos !== null && el.setSelectionRange) {
+        el.setSelectionRange(cursorPos, cursorPos);
+      }
+    }
+  }
+
+  updateScore(a);
+}
+
+function updateScore(a) {
+  const answers = [
+    state.q1 !== null ? true : null,
+    (state.q2delta !== '' && !isNaN(parseFloat(state.q2delta))) ? a.q2 : null,
+    state.q3,
+    (state.q4theta !== '' && state.q4premium !== '') ? a.q4 : null,
+    (state.q5portfolio !== '' && state.q5premium !== '') ? a.q5 : null
+  ];
+  const allDone = answers.every(x => x !== null);
+  const yeses = answers.filter(x => x === true).length;
+
+  const panel = document.getElementById('scorePanel');
+  const rw    = document.getElementById('resetWrap');
+  if (!allDone) { panel.classList.remove('show'); rw.style.display='none'; return; }
+
+  panel.classList.add('show'); rw.style.display='block';
+  panel.className = 'score-panel show ' + (yeses===5?'all-pass':yeses<=1?'all-fail':'partial');
+  document.getElementById('scoreNum').textContent = `${yeses} / 5`;
+  const pct = Math.round((yeses/5)*100);
+  document.getElementById('scorePct').textContent = pct+'%';
+  const bar = document.getElementById('scoreBar');
+  bar.style.width='0%';
+  setTimeout(()=>{ bar.style.width=pct+'%'; },50);
+  bar.style.background = yeses===5?'#0D9E6E':yeses<=1?'#D94F2A':'#F5853F';
+
+  const badge = document.getElementById('verdictBadge');
+  const sub   = document.getElementById('scoreSub');
+  if (yeses===5)      { badge.textContent='✓ Ready to Trade'; badge.className='verdict-badge badge-pass'; sub.textContent="All checks passed — you've done the work."; }
+  else if (yeses===4) { badge.textContent='⚡ Almost Ready';  badge.className='verdict-badge badge-warn'; sub.textContent='One concern to resolve before entering.'; }
+  else if (yeses>=2)  { badge.textContent='⚠️ Not Yet';       badge.className='verdict-badge badge-warn'; sub.textContent='Multiple issues — revisit before trading.'; }
+  else                { badge.textContent='🚫 Do Not Trade';  badge.className='verdict-badge badge-stop'; sub.textContent='Too many red flags. Protect your capital.'; }
+
+  const labels = ['Thesis','Delta','Expiry','Theta','Risk'];
+  document.getElementById('breakdown').innerHTML = answers.map((v,i)=>`<span class="bd-pill ${v?'bd-yes':'bd-no'}">${v?'✓':'✗'} ${labels[i]}</span>`).join('');
+}
+
+function setQ1(val) {
+  state.q1 = state.q1 === val ? null : val;
+  render();
+}
+
+function resetAll() {
+  Object.assign(state,{q1:null,q2delta:'',q3:null,q4theta:'',q4premium:'',q5portfolio:'',q5premium:''});
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
