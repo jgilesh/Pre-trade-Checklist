@@ -31,9 +31,20 @@
   .greek-col { display:flex; flex-direction:column; }
   .greek-col + .greek-col { border-left:1.5px solid var(--border); }
   .greek-header { background:var(--orange); color:#fff; text-align:center; padding:0.65rem 0.5rem; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
-  .greek-row { background:#fef4ec; text-align:center; padding:0.65rem 0.6rem; font-family:system-ui,sans-serif; font-size:0.82rem; color:var(--ink); border-top:1px solid #f0dfc8; line-height:1.4; }
+  .greek-row { background:#fef4ec; text-align:center; padding:0.65rem 0.6rem; font-family:system-ui,sans-serif; font-size:0.82rem; color:var(--ink); border-top:1px solid #f0dfc8; line-height:1.4; flex:1; }
   .greek-row.alt { background:#fff8f2; }
+  .greek-row.warn { background:#fff4eb; font-size:0.72rem; color:#8a4a1a; font-style:italic; line-height:1.45; }
   .greeks-quote { text-align:center; margin-top:0.85rem; font-size:0.82rem; font-style:italic; color:var(--tan); }
+  @media (max-width: 480px) {
+    .greeks-grid { grid-template-columns:1fr; border-radius:12px; }
+    .greek-col { flex-direction:row; flex-wrap:wrap; border-bottom:1.5px solid var(--border); }
+    .greek-col:last-child { border-bottom:none; }
+    .greek-col + .greek-col { border-left:none; border-top:1.5px solid var(--border); }
+    .greek-header { width:100%; border-radius:0; padding:0.5rem 1rem; text-align:left; }
+    .greek-row { flex:1; min-width:45%; text-align:left; padding:0.55rem 0.9rem; border-top:none; border-right:1px solid #f0dfc8; font-size:0.8rem; }
+    .greek-row:last-child { border-right:none; }
+    .greek-row.warn { width:100%; min-width:100%; border-right:none; border-top:1px solid #f0dfc8; }
+  }
 
   /* CALLOUT */
   .callout { max-width:720px; margin:0 auto 2rem; background:#fff4eb; border:1.5px solid #fad0a8; border-radius:12px; padding:1rem 1.4rem; display:flex; align-items:flex-start; gap:0.75rem; font-family:system-ui,sans-serif; font-size:0.875rem; color:#6b4b28; line-height:1.55; }
@@ -203,7 +214,7 @@ const state = {
   q1: null,
   q2delta: '',
   q3: null,
-  q4theta: '', q4premium: '',
+  q4theta: '',
   q5portfolio: '', q5premium: ''
 };
 
@@ -218,11 +229,11 @@ function getAnswers() {
   // Q3: yes/no
   const q3 = state.q3;
 
-  // Q4: daily theta decay < 2% of premium
+  // Q4: |Theta| must be <= 50% of Delta
   const theta4 = parseFloat(state.q4theta);
-  const prem4  = parseFloat(state.q4premium);
-  const q4 = (state.q4theta !== '' && state.q4premium !== '' && !isNaN(theta4) && !isNaN(prem4) && prem4 > 0)
-    ? (Math.abs(theta4) / prem4) * 100 < 2 : null;
+  const thetaPct4 = (!isNaN(d) && d > 0 && state.q4theta !== '' && !isNaN(theta4))
+    ? (Math.abs(theta4) / d) * 100 : null;
+  const q4 = thetaPct4 !== null ? thetaPct4 <= 50 : null;
 
   // Q5: premium is 2–5% of portfolio
   const port5 = parseFloat(state.q5portfolio);
@@ -232,10 +243,8 @@ function getAnswers() {
     ? (riskPct5 >= 2 && riskPct5 <= 5) : null;
 
   return { q1, q2, q3, q4, q5,
-    d, theta4, prem4,
-    riskPct5: riskPct5 !== null ? riskPct5 : null,
-    dailyPct4: (state.q4theta !== '' && state.q4premium !== '' && !isNaN(theta4) && !isNaN(prem4) && prem4 > 0)
-      ? ((Math.abs(theta4) / prem4) * 100).toFixed(2) : null
+    d, theta4, thetaPct4,
+    riskPct5: riskPct5 !== null ? riskPct5 : null
   };
 }
 
@@ -338,7 +347,9 @@ function render() {
   c.appendChild(q3div);
 
   // ── Q4 ──────────────────────────────────────────────────────────────────
-  const q4ev = state.q4theta !== '' && state.q4premium !== '' && !isNaN(a.theta4) && !isNaN(a.prem4) && a.prem4 > 0;
+  const deltaEntered = state.q2delta !== '' && !isNaN(parseFloat(state.q2delta));
+  const q4ev = state.q4theta !== '' && !isNaN(a.theta4) && deltaEntered;
+  const thetaPctStr = a.thetaPct4 !== null ? a.thetaPct4.toFixed(1) : null;
   const q4div = document.createElement('div');
   q4div.className = cardCls(q4ev ? a.q4 : null);
   q4div.innerHTML = `
@@ -347,32 +358,37 @@ function render() {
       <div class="q-body">
         <span class="q-hint">Greeks · Theta</span>
         <div class="q-text">Is my Theta manageable?</div>
-        <div class="q-note">Enter your Theta and the premium you paid — the tool calculates your daily decay rate.</div>
+        <div class="q-note">Theta should be no more than 50% of your Delta. Uses the Delta you entered in Q2.</div>
+        ${q4ev && !a.q4 ? `<div style="margin-top:0.5rem;padding:0.55rem 0.85rem;background:var(--no-bg);border:1px solid var(--no-border);border-radius:8px;font-family:system-ui,sans-serif;font-size:0.75rem;color:#7f1d1d;line-height:1.5;font-weight:600;">🚫 Don't enter this trade. If you decide to enter anyway — exit today or tomorrow at the latest.</div>` : ''}
         <div class="input-row">
           <div class="input-group">
             <label>Theta (per day)</label>
             <div class="num-input-wrap">
               <span class="num-prefix">θ</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="-0.05"
-                id="inp-q4theta" value="${state.q4theta}" oninput="state.q4theta=this.value;render();" style="width:90px" />
+              <input class="num-input" type="text" inputmode="decimal" placeholder="0.05"
+                id="inp-q4theta" value="${state.q4theta || '-'}"
+                oninput="let v=this.value; if(!v.startsWith('-'))v='-'+v.replace(/-/g,''); state.q4theta=v; render();"
+                onkeydown="if(this.selectionStart===0 && this.selectionEnd<=1 && (event.key==='Backspace'||event.key==='Delete')){event.preventDefault();}"
+                style="width:90px" />
             </div>
           </div>
-          <div class="input-group">
-            <label>Premium Paid ($)</label>
-            <div class="num-input-wrap">
-              <span class="num-prefix">$</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="2.00"
-                id="inp-q4prem" value="${state.q4premium}" oninput="state.q4premium=this.value;render();" style="width:90px" />
-            </div>
-          </div>
-          ${q4ev ? `<span class="eval-tag ${a.q4 ? 'pass' : 'fail'} show">${a.q4 ? '✓' : '✗'} ${a.dailyPct4}% / day</span>` : ''}
+          ${!deltaEntered ? `<span class="eval-tag fail show">⚠ Enter Delta in Q2 first</span>` : ''}
+          ${q4ev ? `<span class="eval-tag ${a.q4 ? 'pass' : 'fail'} show">${a.q4 ? '✓' : '✗'} ${thetaPctStr}% of Delta</span>` : ''}
         </div>
       </div>
     </div>
-    ${q4ev && a.q4  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Theta under control.</div>At <strong>${a.dailyPct4}% per day</strong>, your daily decay is manageable. Knowing your daily cost means no surprises — you can hold the trade without panic-selling due to time decay alone. Stay aware of this number as expiration approaches, since Theta accelerates in the final 30 days.</div>` : ''}
-    ${q4ev && !a.q4 ? `<div class="q-feedback no-fb show"><div class="fb-title">⚠️ Theta is eating your premium too fast.</div>At <strong>${a.dailyPct4}% per day</strong>, time decay is working against you at a punishing pace. Even 5 flat days in the stock can erode a significant portion of your premium — before it has a chance to move in your favor. Consider a contract with more time until expiration.</div>` : ''}
+    ${q4ev && a.q4  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Theta is within range.</div>Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — under the 50% threshold. Time decay is not working against you at an alarming rate. You're in a position where the trade has room to develop.</div>` : ''}
+
   `;
   c.appendChild(q4div);
+
+  // ── Q4 bottom feedback (fail only) ──────────────────────────────────────
+  if (q4ev && !a.q4) {
+    const q4fb = document.createElement('div');
+    q4fb.className = 'q-feedback no-fb show';
+    q4fb.innerHTML = `<div class="fb-title">🚫 Don't enter this trade.</div>Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — above the 50% limit. Time decay is eroding your position faster than any directional move can compensate.`;
+    q4div.appendChild(q4fb);
+  }
 
   // ── Q5 ──────────────────────────────────────────────────────────────────
   const q5ev = state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(parseFloat(state.q5portfolio)) && !isNaN(parseFloat(state.q5premium)) && parseFloat(state.q5portfolio) > 0;
@@ -434,7 +450,7 @@ function updateScore(a) {
     state.q1 !== null ? true : null,
     (state.q2delta !== '' && !isNaN(parseFloat(state.q2delta))) ? a.q2 : null,
     state.q3,
-    (state.q4theta !== '' && state.q4premium !== '') ? a.q4 : null,
+    state.q4theta !== '' ? a.q4 : null,
     (state.q5portfolio !== '' && state.q5premium !== '') ? a.q5 : null
   ];
   const allDone = answers.every(x => x !== null);
@@ -471,7 +487,7 @@ function setQ1(val) {
 }
 
 function resetAll() {
-  Object.assign(state,{q1:null,q2delta:'',q3:null,q4theta:'',q4premium:'',q5portfolio:'',q5premium:''});
+  Object.assign(state,{q1:null,q2delta:'',q3:null,q4theta:'',q5portfolio:'',q5premium:''});
   render();
   window.scrollTo({top:0,behavior:'smooth'});
 }
