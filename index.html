@@ -240,7 +240,7 @@ function getAnswers() {
   const prem5 = parseFloat(state.q5premium);
   const riskPct5 = (port5 > 0) ? (prem5 / port5) * 100 : null;
   const q5 = (state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(port5) && !isNaN(prem5) && port5 > 0)
-    ? (riskPct5 >= 2 && riskPct5 <= 5) : null;
+    ? (riskPct5 <= 5) : null;
 
   return { q1, q2, q3, q4, q5,
     d, theta4, thetaPct4,
@@ -423,11 +423,12 @@ function render() {
             </div>
           </div>
         </div>
-        ${q5ev ? `<div class="risk-display ${a.q5 ? 'pass' : 'fail'} show"><span class="risk-pct">${rp.toFixed(1)}%</span><span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span></div>` : ''}
+        ${q5ev ? `<div class="risk-display ${rp > 5 ? 'fail' : 'pass'} show"><span class="risk-pct">${rp.toFixed(1)}%</span><span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span></div>` : ''}
       </div>
     </div>
-    ${q5ev && a.q5  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Risk is sized appropriately.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.</div>` : ''}
-    ${q5ev && !a.q5 ? `<div class="q-feedback no-fb show"><div class="fb-title">${rp < 2 ? '⚠️ Slightly under the 2% minimum — fine for learning.' : '🚫 Risk exceeds the recommended 5% cap.'}</div>${rp < 2 ? `At <strong>${rp.toFixed(1)}%</strong>, you're being conservative — that's perfectly fine when you're learning. Just know that the dollar upside is proportionally small. Our recommended starting range is 2–5% per trade.` : `At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.`}</div>` : ''}
+    ${q5ev && rp <= 5 && rp >= 2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Risk is sized appropriately.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.</div>` : ''}
+    ${q5ev && rp < 2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">🟡 You're being conservative — that's okay.</div>At <strong>${rp.toFixed(1)}%</strong>, your position is below the 2–5% range we recommend. This is fine, especially when you're learning. Just know the dollar upside will be proportionally small. Consider sizing up slightly once you're comfortable.</div>` : ''}
+    ${q5ev && rp > 5 ? `<div class="q-feedback no-fb show"><div class="fb-title">🚫 Risk exceeds the recommended 5% cap.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.</div>` : ''}
   `;
   c.appendChild(q5div);
 
