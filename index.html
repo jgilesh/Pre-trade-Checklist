@@ -3,151 +3,323 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Options Pre-Trade Checklist · demystified</title>
+<title>Pre-Trade Checklist · demystified</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: linear-gradient(150deg, #faf5ee, #f3e9d8);
-    --card: #fffcf7; --border: #e8ddd0;
-    --orange: #F5853F; --orange-dark: #D94F2A;
-    --tan: #8a7560; --ink: #1a1108; --muted: #b0a090;
-    --green: #0D9E6E; --red: #D94F2A;
-    --yes-bg: #e8faf3; --yes-border: #a7f3d0;
-    --no-bg: #fff0ee; --no-border: #fca99b;
+    --orange:     #F5853F;
+    --orange-dk:  #D94F2A;
+    --green:      #0D9E6E;
+    --red:        #D94F2A;
+    --gold:       #C4A460;
+    --purple:     #7C5CBF;
+    --ink:        #1a1108;
+    --card:       #fffcf7;
+    --border:     #e8ddd0;
+    --lbl:        #8a7560;
+    --muted:      #b0a090;
+    --inp-bg:     #f5ede0;
+    --inp-bd:     #ddd0bc;
+    --yes-bg:     #e8faf3;
+    --yes-bd:     #a7f3d0;
+    --no-bg:      #fff0ee;
+    --no-bd:      #fca99b;
   }
-  body { min-height:100vh; background:var(--bg); font-family:Georgia,serif; color:var(--ink); padding:2rem 1rem 4rem; }
-  .header { max-width:720px; margin:0 auto 2rem; }
-  .header-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; }
-  .wordmark { font-style:italic; font-size:1.5rem; color:var(--ink); letter-spacing:-0.02em; }
-  .logo-box { width:32px; height:32px; background:var(--orange); border-radius:7px; }
-  .divider { height:2px; background:linear-gradient(to right,var(--orange) 0%,transparent 70%); margin-bottom:1.5rem; }
-  h1 { font-size:clamp(1.7rem,5vw,2.5rem); color:var(--ink); letter-spacing:-0.03em; line-height:1.15; margin-bottom:0.4rem; }
-  .subtitle { color:var(--tan); font-size:0.93rem; font-family:system-ui,sans-serif; }
 
-  /* GREEKS */
-  .greeks-section { max-width:720px; margin:0 auto 2rem; }
-  .greeks-label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--tan); margin-bottom:0.65rem; }
-  .greeks-grid { display:grid; grid-template-columns:repeat(3,1fr); border-radius:12px; overflow:hidden; border:1.5px solid var(--border); }
-  .greek-col { display:flex; flex-direction:column; }
-  .greek-col + .greek-col { border-left:1.5px solid var(--border); }
-  .greek-header { background:var(--orange); color:#fff; text-align:center; padding:0.65rem 0.5rem; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; }
-  .greek-row { background:#fef4ec; text-align:center; padding:0.65rem 0.6rem; font-family:system-ui,sans-serif; font-size:0.82rem; color:var(--ink); border-top:1px solid #f0dfc8; line-height:1.4; flex:1; }
-  .greek-row.alt { background:#fff8f2; }
-  .greek-row.warn { background:#fff4eb; font-size:0.72rem; color:#8a4a1a; font-style:italic; line-height:1.45; }
-  .greeks-quote { text-align:center; margin-top:0.85rem; font-size:0.82rem; font-style:italic; color:var(--tan); }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(150deg, #faf5ee, #f3e9d8);
+    font-family: Georgia, serif;
+    color: var(--ink);
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────────────────── */
+  .header { max-width: 760px; margin: 0 auto 2rem; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-style: italic; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em; }
+  .logo-box { width: 32px; height: 32px; background: var(--orange); border-radius: 7px; flex-shrink: 0; }
+  .divider { height: 2px; background: linear-gradient(to right, var(--orange) 0%, transparent 70%); margin: 0.6rem 0 1.5rem; }
+  h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--ink); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.4rem; }
+  .subtitle { font-family: system-ui, sans-serif; font-size: 0.95rem; color: var(--lbl); }
+
+  /* ── GREEKS SUMMARY ──────────────────────────────────────────────────── */
+  .greeks-wrap { max-width: 760px; margin: 0 auto 1.75rem; }
+  .section-eyebrow {
+    font-family: system-ui, sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--lbl); margin-bottom: 0.65rem;
+  }
+  .greeks-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .greek-col { display: flex; flex-direction: column; }
+  .greek-col + .greek-col { border-left: 1px solid var(--border); }
+  .greek-header {
+    background: var(--orange); color: #fff; text-align: center;
+    padding: 0.65rem 0.5rem; font-family: system-ui, sans-serif;
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .greek-row {
+    background: #fef4ec; text-align: center; padding: 0.65rem 0.75rem;
+    font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--ink);
+    border-top: 1px solid #f0dfc8; line-height: 1.45; flex: 1;
+  }
+  .greek-row.alt { background: #fff8f2; }
+  .greeks-quote {
+    text-align: center; margin-top: 0.85rem;
+    font-size: 0.83rem; font-style: italic; color: var(--lbl);
+  }
+
+  /* ── CALLOUT ─────────────────────────────────────────────────────────── */
+  .callout {
+    max-width: 760px; margin: 0 auto 2rem;
+    background: #fff4eb; border: 1.5px solid #fad0a8; border-radius: 12px;
+    padding: 1rem 1.4rem; display: flex; align-items: flex-start; gap: 0.75rem;
+    font-family: system-ui, sans-serif; font-size: 0.875rem; color: #6b4b28; line-height: 1.55;
+  }
+  .callout-icon { font-size: 1.15rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── QUESTION CARDS ──────────────────────────────────────────────────── */
+  .questions { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+
+  .q-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden; position: relative; transition: border-color 0.2s;
+  }
+  .q-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--orange); transition: background 0.2s;
+  }
+  .q-card.answered-yes::before { background: var(--green); }
+  .q-card.answered-no::before  { background: var(--red); }
+
+  .q-main { padding: 1.5rem 1.5rem 1.25rem 1.75rem; display: flex; align-items: flex-start; gap: 1rem; }
+
+  .q-num {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--inp-bg); color: var(--orange);
+    font-size: 0.85rem; font-weight: 700; font-family: system-ui, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, color 0.2s; margin-top: 1px;
+  }
+  .q-num.answered-yes { background: var(--yes-bg); color: var(--green); }
+  .q-num.answered-no  { background: var(--no-bg);  color: var(--red); }
+
+  .q-body { flex: 1; min-width: 0; }
+
+  .q-hint {
+    display: inline-block; font-family: system-ui, sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--lbl); margin-bottom: 0.35rem;
+  }
+  .q-text { font-size: 1.08rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 0.5rem; }
+  .q-note { font-family: system-ui, sans-serif; font-size: 0.8rem; color: var(--lbl); font-style: italic; }
+
+  /* ── DIRECTION SELECTOR ──────────────────────────────────────────────── */
+  .direction-selector { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
+  .btn-dir {
+    flex: 1; max-width: 140px; padding: 0.6rem 1rem; border-radius: 8px;
+    border: 1.5px solid var(--border); background: transparent;
+    font-family: system-ui, sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    color: var(--lbl); transition: all 0.15s;
+  }
+  .btn-dir:hover { border-color: var(--orange); color: var(--orange); }
+  .btn-dir.active-bull { background: var(--yes-bg); border-color: var(--green); color: var(--green); }
+  .btn-dir.active-bear { background: var(--no-bg);  border-color: var(--red);   color: var(--red); }
+
+  .contract-result {
+    display: none; margin-top: 0.9rem; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1rem; border-radius: 10px;
+    font-family: system-ui, sans-serif; font-size: 0.85rem; font-weight: 600;
+    animation: fadeSlide 0.2s ease;
+  }
+  .contract-result.show { display: flex; flex-wrap: wrap; }
+  .contract-result.bull { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
+  .contract-result.bear { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
+  .type-badge {
+    font-size: 0.9rem; font-weight: 800; padding: 0.2rem 0.8rem;
+    border-radius: 6px; letter-spacing: 0.06em;
+  }
+  .bull .type-badge { background: var(--green); color: #fff; }
+  .bear .type-badge { background: var(--red);   color: #fff; }
+
+  /* ── INPUTS ──────────────────────────────────────────────────────────── */
+  .input-row { display: flex; align-items: flex-end; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+  .input-group { display: flex; flex-direction: column; gap: 0.3rem; }
+  .input-group label {
+    font-family: system-ui, sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--lbl);
+  }
+  .num-input-wrap {
+    display: flex; border: 1.5px solid var(--inp-bd); border-radius: 8px;
+    overflow: hidden; background: var(--card);
+  }
+  .num-prefix {
+    padding: 0.55rem 0.8rem; background: var(--inp-bg);
+    color: var(--lbl); font-size: 0.85rem; font-weight: 600;
+    font-family: system-ui, sans-serif; border-right: 1px solid var(--inp-bd);
+    flex-shrink: 0;
+  }
+  .num-input {
+    border: none; outline: none; background: transparent;
+    padding: 0.55rem 0.75rem; font-size: 0.95rem; font-family: Georgia, serif;
+    color: var(--ink); min-width: 0;
+  }
+  .num-input::placeholder { color: #c0b09a; }
+
+  /* eval pill */
+  .eval-tag {
+    display: none; align-items: center; gap: 0.4rem;
+    padding: 0.45rem 0.85rem; border-radius: 999px;
+    font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.04em; white-space: nowrap; margin-bottom: 2px;
+  }
+  .eval-tag.show { display: flex; }
+  .eval-tag.pass { background: var(--yes-bg); color: var(--green); border: 1px solid var(--yes-bd); }
+  .eval-tag.fail { background: var(--no-bg);  color: var(--red);   border: 1px solid var(--no-bd); }
+
+  /* ── YES / NO ────────────────────────────────────────────────────────── */
+  .q-actions { display: flex; gap: 0.6rem; margin-top: 1rem; }
+  .btn-yn {
+    flex: 1; max-width: 100px; padding: 0.55rem 0; border-radius: 8px;
+    border: 1.5px solid var(--border); background: transparent;
+    font-family: system-ui, sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    color: var(--lbl); transition: all 0.15s;
+  }
+  .btn-yn:hover { border-color: var(--orange); color: var(--orange); }
+  .btn-yn.active-yes { background: var(--yes-bg); border-color: var(--green); color: var(--green); }
+  .btn-yn.active-no  { background: var(--no-bg);  border-color: var(--red);   color: var(--red); }
+
+  /* ── RISK DISPLAY ────────────────────────────────────────────────────── */
+  .risk-display {
+    margin-top: 0.85rem; padding: 0.85rem 1rem; border-radius: 10px;
+    font-family: system-ui, sans-serif; font-size: 0.82rem;
+    display: none; animation: fadeSlide 0.2s ease; flex-wrap: wrap;
+    align-items: center; gap: 0.6rem 1rem;
+  }
+  .risk-display.show { display: flex; }
+  .risk-display.pass { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
+  .risk-display.warn { background: #fff9e8; border: 1px solid #f5d990; color: #7a5a00; }
+  .risk-display.fail { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
+  .risk-pct { font-size: 1.5rem; font-family: Georgia, serif; font-weight: 700; line-height: 1; }
+
+  /* ── FEEDBACK ────────────────────────────────────────────────────────── */
+  .q-feedback {
+    margin: 0 1.5rem 1.5rem 1.75rem; border-radius: 10px;
+    padding: 1rem 1.15rem; font-family: system-ui, sans-serif;
+    font-size: 0.83rem; line-height: 1.6; display: none;
+    animation: fadeSlide 0.22s ease;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.yes-fb { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
+  .q-feedback.no-fb  { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
+  .fb-title { font-weight: 700; margin-bottom: 0.3rem; font-size: 0.88rem; }
+
+  /* ── DONT-ENTER WARNING ──────────────────────────────────────────────── */
+  .no-enter-warn {
+    margin-top: 0.65rem; padding: 0.6rem 0.9rem;
+    background: var(--no-bg); border: 1px solid var(--no-bd); border-radius: 8px;
+    font-family: system-ui, sans-serif; font-size: 0.75rem;
+    color: #7f1d1d; font-weight: 600; line-height: 1.5;
+    display: none;
+  }
+  .no-enter-warn.show { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SCORE PANEL ─────────────────────────────────────────────────────── */
+  .score-panel {
+    max-width: 760px; margin: 2rem auto 0; border-radius: 14px;
+    padding: 1.8rem 2rem; display: none; animation: fadeSlide 0.3s ease;
+  }
+  .score-panel.show { display: block; }
+  .score-panel.all-pass { background: linear-gradient(130deg, #052e16, #064e3b); }
+  .score-panel.partial  { background: linear-gradient(130deg, #1a1108, #2c1d0e); }
+  .score-panel.all-fail { background: linear-gradient(130deg, #3b0606, #1a0808); }
+
+  .score-top {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem; margin-bottom: 1.6rem;
+  }
+  .score-label {
+    font-family: system-ui, sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #9a7a55; margin-bottom: 0.3rem;
+  }
+  .score-panel.all-pass .score-label { color: #6ee7b7; }
+  .score-num { font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; font-family: Georgia, serif; }
+  .score-sub { font-family: system-ui, sans-serif; font-size: 0.78rem; color: #9a7a55; margin-top: 0.2rem; }
+  .score-panel.all-pass .score-sub { color: #a7f3d0; }
+
+  .verdict-badge {
+    padding: 0.55rem 1.4rem; border-radius: 999px;
+    font-family: system-ui, sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.06em; color: #fff;
+  }
+  .badge-pass { background: var(--green); }
+  .badge-warn { background: var(--orange); }
+  .badge-stop { background: var(--red); }
+
+  .score-bar-wrap { margin-bottom: 1.4rem; }
+  .score-bar-label { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+  .score-bar-label span {
+    font-family: system-ui, sans-serif; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #9a7a55;
+  }
+  .score-panel.all-pass .score-bar-label span { color: #6ee7b7; }
+  .score-bar-bg { height: 7px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+  .breakdown { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .bd-pill {
+    font-family: system-ui, sans-serif; font-size: 0.72rem;
+    font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 999px;
+  }
+  .bd-yes { background: rgba(13,158,110,0.2); color: #6ee7b7; }
+  .bd-no  { background: rgba(217,79,42,0.2);  color: #fca5a5; }
+
+  /* ── RESET ───────────────────────────────────────────────────────────── */
+  .reset-wrap { max-width: 760px; margin: 1.5rem auto 0; text-align: center; }
+  .btn-reset {
+    background: none; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 0.55rem 1.6rem; font-family: system-ui, sans-serif;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--lbl); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-reset:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* ── FOOTER ──────────────────────────────────────────────────────────── */
+  .footer {
+    max-width: 760px; margin: 2.5rem auto 0; text-align: center;
+    color: var(--muted); font-size: 0.7rem; letter-spacing: 0.05em;
+  }
+  .footer em { font-style: italic; }
+
+  /* ── MOBILE ──────────────────────────────────────────────────────────── */
   @media (max-width: 480px) {
-    .greeks-grid { grid-template-columns:1fr; border-radius:12px; }
-    .greek-col { flex-direction:row; flex-wrap:wrap; border-bottom:1.5px solid var(--border); }
-    .greek-col:last-child { border-bottom:none; }
-    .greek-col + .greek-col { border-left:none; border-top:1.5px solid var(--border); }
-    .greek-header { width:100%; border-radius:0; padding:0.5rem 1rem; text-align:left; }
-    .greek-row { flex:1; min-width:45%; text-align:left; padding:0.55rem 0.9rem; border-top:none; border-right:1px solid #f0dfc8; font-size:0.8rem; }
-    .greek-row:last-child { border-right:none; }
-    .greek-row.warn { width:100%; min-width:100%; border-right:none; border-top:1px solid #f0dfc8; }
+    .greeks-grid { grid-template-columns: 1fr; }
+    .greek-col { flex-direction: row; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+    .greek-col:last-child { border-bottom: none; }
+    .greek-col + .greek-col { border-left: none; border-top: 1px solid var(--border); }
+    .greek-header { width: 100%; text-align: left; padding: 0.5rem 1rem; }
+    .greek-row { flex: 1; min-width: 45%; text-align: left; padding: 0.55rem 0.9rem; border-top: none; border-right: 1px solid #f0dfc8; }
+    .greek-row:last-child { border-right: none; }
+    .score-panel { padding: 1.4rem 1.2rem; }
+    .q-main { padding: 1.25rem 1.25rem 1rem 1.5rem; }
+    .q-feedback { margin: 0 1.25rem 1.25rem 1.5rem; }
   }
-
-  /* CALLOUT */
-  .callout { max-width:720px; margin:0 auto 2rem; background:#fff4eb; border:1.5px solid #fad0a8; border-radius:12px; padding:1rem 1.4rem; display:flex; align-items:flex-start; gap:0.75rem; font-family:system-ui,sans-serif; font-size:0.875rem; color:#6b4b28; line-height:1.55; }
-  .callout-icon { font-size:1.15rem; flex-shrink:0; margin-top:1px; }
-
-  /* QUESTIONS */
-  .questions { max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
-  .q-card { background:var(--card); border:1.5px solid var(--border); border-radius:14px; overflow:hidden; position:relative; transition:border-color 0.2s; }
-  .q-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--orange); transition:background 0.2s; }
-  .q-card.answered-yes::before { background:var(--green); }
-  .q-card.answered-no::before  { background:var(--red); }
-  .q-main { padding:1.4rem 1.4rem 1.2rem 1.6rem; display:flex; align-items:flex-start; gap:1rem; }
-  .q-num { flex-shrink:0; width:32px; height:32px; border-radius:50%; background:#f5ede0; color:var(--orange); font-size:0.85rem; font-weight:700; font-family:system-ui,sans-serif; display:flex; align-items:center; justify-content:center; transition:background 0.2s,color 0.2s; margin-top:1px; }
-  .q-num.answered-yes { background:var(--yes-bg); color:var(--green); }
-  .q-num.answered-no  { background:var(--no-bg);  color:var(--red); }
-  .q-body { flex:1; }
-  .q-hint { display:inline-block; font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--tan); margin-bottom:0.35rem; }
-  .q-text { font-size:1.08rem; font-weight:700; color:var(--ink); line-height:1.3; margin-bottom:0.5rem; }
-  .q-note { font-family:system-ui,sans-serif; font-size:0.8rem; color:var(--tan); font-style:italic; }
-
-  /* DIRECTION (Q1) */
-  .direction-selector { display:flex; gap:0.6rem; margin-top:1rem; }
-  .btn-direction { flex:1; max-width:130px; padding:0.55rem 0.5rem; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--tan); transition:all 0.15s; }
-  .btn-direction:hover { border-color:var(--orange); color:var(--orange); }
-  .btn-direction.active-bull { background:var(--yes-bg); border-color:var(--green); color:var(--green); }
-  .btn-direction.active-bear { background:var(--no-bg);  border-color:var(--red);   color:var(--red); }
-  .contract-result { margin-top:0.9rem; display:none; align-items:center; gap:0.6rem; padding:0.75rem 1rem; border-radius:10px; font-family:system-ui,sans-serif; font-size:0.85rem; font-weight:600; animation:fadeSlide 0.2s ease; }
-  .contract-result.show { display:flex; }
-  .contract-result.bull { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
-  .contract-result.bear { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
-  .type-badge { font-size:1rem; font-weight:800; padding:0.2rem 0.8rem; border-radius:6px; letter-spacing:0.06em; }
-  .bull .type-badge { background:#0D9E6E; color:#fff; }
-  .bear .type-badge { background:#D94F2A; color:#fff; }
-
-  /* INPUTS */
-  .input-row { display:flex; align-items:flex-end; gap:0.75rem; margin-top:1rem; flex-wrap:wrap; }
-  .input-group { display:flex; flex-direction:column; gap:0.3rem; }
-  .input-group label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--tan); }
-  .num-input-wrap { display:flex; border:1.5px solid var(--border); border-radius:8px; overflow:hidden; background:#fffcf7; }
-  .num-prefix { padding:0.5rem 0.7rem; background:#f5ede0; color:var(--tan); font-size:0.85rem; font-weight:600; font-family:system-ui,sans-serif; }
-  .num-input { border:none; outline:none; background:transparent; padding:0.5rem 0.65rem; font-size:0.95rem; font-family:Georgia,serif; color:var(--ink); width:90px; }
-  .num-input::-webkit-inner-spin-button { -webkit-appearance:none; }
-  .eval-tag { display:none; align-items:center; gap:0.4rem; padding:0.45rem 0.85rem; border-radius:999px; font-family:system-ui,sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.04em; white-space:nowrap; margin-bottom:2px; }
-  .eval-tag.show { display:flex; }
-  .eval-tag.pass { background:var(--yes-bg); color:var(--green); border:1px solid var(--yes-border); }
-  .eval-tag.fail { background:var(--no-bg);  color:var(--red);   border:1px solid var(--no-border); }
-
-  /* YES/NO */
-  .q-actions { display:flex; gap:0.6rem; margin-top:1rem; }
-  .btn-yn { flex:1; max-width:100px; padding:0.5rem 0; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--tan); transition:all 0.15s; }
-  .btn-yn:hover { border-color:var(--orange); color:var(--orange); }
-  .btn-yn.active-yes { background:var(--yes-bg); border-color:var(--green); color:var(--green); }
-  .btn-yn.active-no  { background:var(--no-bg);  border-color:var(--red);   color:var(--red); }
-
-  /* RISK DISPLAY */
-  .risk-display { margin-top:0.75rem; padding:0.75rem 1rem; border-radius:10px; font-family:system-ui,sans-serif; font-size:0.82rem; display:none; animation:fadeSlide 0.2s ease; }
-  .risk-display.show { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
-  .risk-display.pass { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
-  .risk-display.fail { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
-  .risk-pct { font-size:1.4rem; font-family:Georgia,serif; font-weight:700; }
-
-  /* FEEDBACK */
-  .q-feedback { margin:0 1.4rem 1.4rem 1.6rem; border-radius:10px; padding:1rem 1.15rem; font-family:system-ui,sans-serif; font-size:0.83rem; line-height:1.6; display:none; animation:fadeSlide 0.22s ease; }
-  .q-feedback.show { display:block; }
-  .q-feedback.yes-fb { background:var(--yes-bg); border:1px solid var(--yes-border); color:#065f46; }
-  .q-feedback.no-fb  { background:var(--no-bg);  border:1px solid var(--no-border);  color:#7f1d1d; }
-  .fb-title { font-weight:700; margin-bottom:0.3rem; font-size:0.88rem; }
-
-  @keyframes fadeSlide { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-
-  /* SCORE */
-  .score-panel { max-width:720px; margin:2rem auto 0; border-radius:14px; padding:1.8rem 2rem; display:none; animation:fadeSlide 0.3s ease; }
-  .score-panel.show { display:block; }
-  .score-panel.all-pass { background:linear-gradient(130deg,#052e16,#064e3b); }
-  .score-panel.partial  { background:linear-gradient(130deg,#1a1108,#2c1d0e); }
-  .score-panel.all-fail { background:linear-gradient(130deg,#3b0606,#1a0808); }
-  .score-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
-  .score-label { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:#9a7a55; margin-bottom:0.3rem; }
-  .score-panel.all-pass .score-label { color:#6ee7b7; }
-  .score-num { font-size:2.5rem; font-weight:700; color:#fff; line-height:1; }
-  .score-sub { font-family:system-ui,sans-serif; font-size:0.78rem; color:#9a7a55; margin-top:0.2rem; }
-  .score-panel.all-pass .score-sub { color:#a7f3d0; }
-  .verdict-badge { padding:0.55rem 1.4rem; border-radius:999px; font-family:system-ui,sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.06em; color:#fff; }
-  .badge-pass { background:var(--green); } .badge-warn { background:var(--orange); } .badge-stop { background:var(--red); }
-  .score-bar-wrap { margin-bottom:1.4rem; }
-  .score-bar-label { display:flex; justify-content:space-between; margin-bottom:0.4rem; }
-  .score-bar-label span { font-family:system-ui,sans-serif; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:#9a7a55; }
-  .score-panel.all-pass .score-bar-label span { color:#6ee7b7; }
-  .score-bar-bg { height:7px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden; }
-  .score-bar-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
-  .breakdown { display:flex; flex-wrap:wrap; gap:0.5rem; }
-  .bd-pill { font-family:system-ui,sans-serif; font-size:0.72rem; font-weight:600; padding:0.3rem 0.75rem; border-radius:999px; }
-  .bd-yes { background:rgba(13,158,110,0.2); color:#6ee7b7; }
-  .bd-no  { background:rgba(217,79,42,0.2);  color:#fca5a5; }
-  .reset-wrap { max-width:720px; margin:1.5rem auto 0; text-align:center; }
-  .btn-reset { background:none; border:1.5px solid var(--border); border-radius:8px; padding:0.55rem 1.5rem; font-family:system-ui,sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--tan); cursor:pointer; transition:all 0.15s; }
-  .btn-reset:hover { border-color:var(--orange); color:var(--orange); }
-  .footer { max-width:720px; margin:2.5rem auto 0; text-align:center; color:var(--muted); font-size:0.7rem; letter-spacing:0.05em; }
-  .footer em { font-style:italic; }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <span class="wordmark">demystified</span>
@@ -158,8 +330,9 @@
   <p class="subtitle">5 questions to ask yourself before buying any options contract.</p>
 </div>
 
-<div class="greeks-section">
-  <div class="greeks-label">📐 The 3 Greeks Beginners Need to Know</div>
+<!-- GREEKS SUMMARY -->
+<div class="greeks-wrap">
+  <div class="section-eyebrow">📐 The 3 Greeks Beginners Need to Know</div>
   <div class="greeks-grid">
     <div class="greek-col">
       <div class="greek-header">Delta</div>
@@ -180,13 +353,16 @@
   <div class="greeks-quote">"If these three are working in your favor, you're in a strong position."</div>
 </div>
 
+<!-- CALLOUT -->
 <div class="callout">
   <span class="callout-icon">📋</span>
   <span>Work through each question below. Some will ask for your actual numbers — the tool evaluates them automatically. Your score and personalized feedback appear once all five are complete.</span>
 </div>
 
+<!-- QUESTIONS -->
 <div class="questions" id="questions"></div>
 
+<!-- SCORE PANEL -->
 <div class="score-panel" id="scorePanel">
   <div class="score-top">
     <div>
@@ -197,8 +373,13 @@
     <div class="verdict-badge" id="verdictBadge"></div>
   </div>
   <div class="score-bar-wrap">
-    <div class="score-bar-label"><span>Readiness</span><span id="scorePct">0%</span></div>
-    <div class="score-bar-bg"><div class="score-bar-fill" id="scoreBar" style="width:0%"></div></div>
+    <div class="score-bar-label">
+      <span>Readiness</span>
+      <span id="scorePct">0%</span>
+    </div>
+    <div class="score-bar-bg">
+      <div class="score-bar-fill" id="scoreBar" style="width:0%"></div>
+    </div>
   </div>
   <div class="breakdown" id="breakdown"></div>
 </div>
@@ -207,7 +388,7 @@
   <button class="btn-reset" onclick="resetAll()">↩ Start Over</button>
 </div>
 
-<div class="footer"><em>demystified</em> · for educational purposes only · not financial advice</div>
+<div class="footer"><em>demystified</em> · for educational purposes only</div>
 
 <script>
 const state = {
@@ -215,37 +396,30 @@ const state = {
   q2delta: '',
   q3: null,
   q4theta: '',
-  q5portfolio: '', q5premium: ''
+  q5portfolio: '',
+  q5premium: ''
 };
 
 function getAnswers() {
-  // Q1: just needs a selection
   const q1 = state.q1 !== null ? true : null;
 
-  // Q2: Delta in .40–.60
   const d = parseFloat(state.q2delta);
-  const q2 = state.q2delta !== '' && !isNaN(d) ? (d >= 0.40 && d <= 0.60) : null;
+  const q2 = (state.q2delta !== '' && !isNaN(d)) ? (d >= 0.40 && d <= 0.60) : null;
 
-  // Q3: yes/no
   const q3 = state.q3;
 
-  // Q4: |Theta| must be <= 50% of Delta
   const theta4 = parseFloat(state.q4theta);
   const thetaPct4 = (!isNaN(d) && d > 0 && state.q4theta !== '' && !isNaN(theta4))
     ? (Math.abs(theta4) / d) * 100 : null;
   const q4 = thetaPct4 !== null ? thetaPct4 <= 50 : null;
 
-  // Q5: premium is 2–5% of portfolio
   const port5 = parseFloat(state.q5portfolio);
   const prem5 = parseFloat(state.q5premium);
   const riskPct5 = (port5 > 0) ? (prem5 / port5) * 100 : null;
   const q5 = (state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(port5) && !isNaN(prem5) && port5 > 0)
     ? (riskPct5 <= 5) : null;
 
-  return { q1, q2, q3, q4, q5,
-    d, theta4, thetaPct4,
-    riskPct5: riskPct5 !== null ? riskPct5 : null
-  };
+  return { q1, q2, q3, q4, q5, d, theta4, thetaPct4, riskPct5 };
 }
 
 function numCls(pass) {
@@ -259,12 +433,14 @@ function cardCls(pass) {
 
 function render() {
   const focusedId = document.activeElement ? document.activeElement.id : null;
-  const cursorPos = (document.activeElement && document.activeElement.selectionStart != null) ? document.activeElement.selectionStart : null;
+  const cursorPos = (document.activeElement && document.activeElement.selectionStart != null)
+    ? document.activeElement.selectionStart : null;
+
   const a = getAnswers();
   const c = document.getElementById('questions');
   c.innerHTML = '';
 
-  // ── Q1 ──────────────────────────────────────────────────────────────────
+  // ── Q1: Direction ────────────────────────────────────────────────────
   const q1pass = state.q1 !== null;
   const contractType = state.q1 === 'bull' ? 'CALL' : state.q1 === 'bear' ? 'PUT' : null;
   const q1div = document.createElement('div');
@@ -277,8 +453,8 @@ function render() {
         <div class="q-text">What's my thesis?</div>
         <div class="q-note">Select your market direction — your contract type will follow automatically.</div>
         <div class="direction-selector">
-          <button class="btn-direction ${state.q1 === 'bull' ? 'active-bull' : ''}" onclick="setQ1('bull')">📈 Bullish</button>
-          <button class="btn-direction ${state.q1 === 'bear' ? 'active-bear' : ''}" onclick="setQ1('bear')">📉 Bearish</button>
+          <button class="btn-dir ${state.q1 === 'bull' ? 'active-bull' : ''}" onclick="setQ1('bull')">📈 Bullish</button>
+          <button class="btn-dir ${state.q1 === 'bear' ? 'active-bear' : ''}" onclick="setQ1('bear')">📉 Bearish</button>
         </div>
         ${contractType ? `
         <div class="contract-result show ${state.q1}">
@@ -291,12 +467,14 @@ function render() {
     ${q1pass ? `
     <div class="q-feedback yes-fb show">
       <div class="fb-title">✅ Clear thesis — great start.</div>
-      Knowing your directional conviction before entering is the foundation of every trade. A <strong>${contractType}</strong> gives you the right to ${state.q1 === 'bull' ? 'buy shares at the strike price — your profit grows as the stock rises above it' : 'sell shares at the strike price — your profit grows as the stock falls below it'}. Without a thesis you're gambling on noise.
+      Knowing your directional conviction before entering is the foundation of every trade. A <strong>${contractType}</strong> gives you the right to
+      ${state.q1 === 'bull' ? 'buy shares at the strike price — your profit grows as the stock rises above it.' : 'sell shares at the strike price — your profit grows as the stock falls below it.'}
+      Without a thesis you're gambling on noise.
     </div>` : ''}
   `;
   c.appendChild(q1div);
 
-  // ── Q2 ──────────────────────────────────────────────────────────────────
+  // ── Q2: Delta ────────────────────────────────────────────────────────
   const q2ev = state.q2delta !== '' && !isNaN(a.d);
   const q2div = document.createElement('div');
   q2div.className = cardCls(q2ev ? a.q2 : null);
@@ -313,19 +491,34 @@ function render() {
             <div class="num-input-wrap">
               <span class="num-prefix">Δ</span>
               <input class="num-input" type="text" inputmode="decimal" placeholder="0.50"
-                id="inp-q2delta" value="${state.q2delta}" oninput="state.q2delta=this.value;render();" style="width:80px" />
+                id="inp-q2delta" value="${state.q2delta}"
+                oninput="state.q2delta=this.value;render();"
+                style="width:80px" />
             </div>
           </div>
-          ${q2ev ? `<span class="eval-tag ${a.q2 ? 'pass' : 'fail'} show">${a.q2 ? '✓ In range (.40–.60)' : a.d < 0.40 ? '✗ Too far OTM' : '✗ High premium ITM'}</span>` : ''}
+          ${q2ev ? `<span class="eval-tag ${a.q2 ? 'pass' : 'fail'} show">
+            ${a.q2 ? '✓ In range (.40–.60)' : a.d < 0.40 ? '✗ Too far OTM' : '✗ High premium ITM'}
+          </span>` : ''}
         </div>
       </div>
     </div>
-    ${q2ev && a.q2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Good Delta range.</div>Your Delta of <strong>${a.d.toFixed(2)}</strong> puts you near at-the-money. This gives your option a solid chance of responding meaningfully to price movement without paying an extreme premium. Deep ITM or far OTM contracts come with traps — this sweet spot keeps your learning curve manageable.</div>` : ''}
-    ${q2ev && !a.q2 ? `<div class="q-feedback no-fb show"><div class="fb-title">⚠️ Delta outside the safe zone for beginners.</div>Your Delta of <strong>${a.d.toFixed(2)}</strong> is ${a.d < 0.40 ? 'below .40 — your contract is out-of-the-money. It needs a large move to become profitable and often expires worthless.' : 'above .60 — you\'re likely paying a high premium for the contract.'} As a beginner, drifting outside .40–.60 significantly changes your risk profile. Reassess before continuing.</div>` : ''}
+    ${q2ev && a.q2 ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">✅ Good Delta range.</div>
+      Your Delta of <strong>${a.d.toFixed(2)}</strong> puts you near at-the-money. This gives your option a solid chance of responding meaningfully to price movement without paying an extreme premium. Deep ITM or far OTM contracts come with traps — this sweet spot keeps your learning curve manageable.
+    </div>` : ''}
+    ${q2ev && !a.q2 ? `
+    <div class="q-feedback no-fb show">
+      <div class="fb-title">⚠️ Delta outside the safe zone for beginners.</div>
+      Your Delta of <strong>${a.d.toFixed(2)}</strong> is ${a.d < 0.40
+        ? 'below .40 — your contract is out-of-the-money. It needs a large move to become profitable and often expires worthless.'
+        : 'above .60 — you\'re likely paying a high premium for the contract.'
+      } As a beginner, drifting outside .40–.60 significantly changes your risk profile. Reassess before continuing.
+    </div>` : ''}
   `;
   c.appendChild(q2div);
 
-  // ── Q3 ──────────────────────────────────────────────────────────────────
+  // ── Q3: Expiration ───────────────────────────────────────────────────
   const q3div = document.createElement('div');
   q3div.className = cardCls(state.q3);
   q3div.innerHTML = `
@@ -341,15 +534,24 @@ function render() {
         </div>
       </div>
     </div>
-    ${state.q3 === true  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Enough time in the trade.</div>Giving yourself 30+ days means you're not fighting Theta right out of the gate. Short-dated contracts can lose value rapidly even when the stock moves in your favor — Theta decay accelerates sharply in the final weeks. More time = more room for your thesis to play out.</div>` : ''}
-    ${state.q3 === false ? `<div class="q-feedback no-fb show"><div class="fb-title">🚫 Expiration too soon — high time decay risk.</div>Contracts expiring in under 30 days are the most dangerous for beginners. Theta accelerates dramatically near expiration — your option can lose value fast even if the stock goes your way. Weekly options are particularly unforgiving. Consider rolling to a contract further out in time.</div>` : ''}
+    ${state.q3 === true ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">✅ Enough time in the trade.</div>
+      Giving yourself 30+ days means you're not fighting Theta right out of the gate. Short-dated contracts can lose value rapidly even when the stock moves in your favor — Theta decay accelerates sharply in the final weeks. More time = more room for your thesis to play out.
+    </div>` : ''}
+    ${state.q3 === false ? `
+    <div class="q-feedback no-fb show">
+      <div class="fb-title">🚫 Expiration too soon — high time decay risk.</div>
+      Contracts expiring in under 30 days are the most dangerous for beginners. Theta accelerates dramatically near expiration — your option can lose value fast even if the stock goes your way. Weekly options are particularly unforgiving. Consider rolling to a contract further out in time.
+    </div>` : ''}
   `;
   c.appendChild(q3div);
 
-  // ── Q4 ──────────────────────────────────────────────────────────────────
+  // ── Q4: Theta ────────────────────────────────────────────────────────
   const deltaEntered = state.q2delta !== '' && !isNaN(parseFloat(state.q2delta));
   const q4ev = state.q4theta !== '' && !isNaN(a.theta4) && deltaEntered;
   const thetaPctStr = a.thetaPct4 !== null ? a.thetaPct4.toFixed(1) : null;
+
   const q4div = document.createElement('div');
   q4div.className = cardCls(q4ev ? a.q4 : null);
   q4div.innerHTML = `
@@ -359,13 +561,13 @@ function render() {
         <span class="q-hint">Greeks · Theta</span>
         <div class="q-text">Is my Theta manageable?</div>
         <div class="q-note">Theta should be no more than 50% of your Delta. Uses the Delta you entered in Q2.</div>
-        ${q4ev && !a.q4 ? `<div style="margin-top:0.5rem;padding:0.55rem 0.85rem;background:var(--no-bg);border:1px solid var(--no-border);border-radius:8px;font-family:system-ui,sans-serif;font-size:0.75rem;color:#7f1d1d;line-height:1.5;font-weight:600;">🚫 Don't enter this trade. If you decide to enter anyway — exit today or tomorrow at the latest.</div>` : ''}
+        ${q4ev && !a.q4 ? `<div class="no-enter-warn show">🚫 Don't enter this trade. If you decide to enter anyway — exit today or tomorrow at the latest.</div>` : ''}
         <div class="input-row">
           <div class="input-group">
             <label>Theta (per day)</label>
             <div class="num-input-wrap">
               <span class="num-prefix">θ</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="0.05"
+              <input class="num-input" type="text" inputmode="decimal" placeholder="-0.05"
                 id="inp-q4theta" value="${state.q4theta || '-'}"
                 oninput="let v=this.value; if(!v.startsWith('-'))v='-'+v.replace(/-/g,''); state.q4theta=v; render();"
                 onkeydown="if(this.selectionStart===0 && this.selectionEnd<=1 && (event.key==='Backspace'||event.key==='Delete')){event.preventDefault();}"
@@ -377,27 +579,35 @@ function render() {
         </div>
       </div>
     </div>
-    ${q4ev && a.q4  ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Theta is within range.</div>Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — under the 50% threshold. Time decay is not working against you at an alarming rate. You're in a position where the trade has room to develop.</div>` : ''}
-
+    ${q4ev && a.q4 ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">✅ Theta is within range.</div>
+      Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — under the 50% threshold. Time decay is not working against you at an alarming rate. You're in a position where the trade has room to develop.
+    </div>` : ''}
+    ${q4ev && !a.q4 ? `
+    <div class="q-feedback no-fb show">
+      <div class="fb-title">🚫 Don't enter this trade.</div>
+      Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — above the 50% limit. Time decay is eroding your position faster than any directional move can compensate.
+    </div>` : ''}
   `;
   c.appendChild(q4div);
 
-  // ── Q4 bottom feedback (fail only) ──────────────────────────────────────
-  if (q4ev && !a.q4) {
-    const q4fb = document.createElement('div');
-    q4fb.className = 'q-feedback no-fb show';
-    q4fb.innerHTML = `<div class="fb-title">🚫 Don't enter this trade.</div>Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — above the 50% limit. Time decay is eroding your position faster than any directional move can compensate.`;
-    q4div.appendChild(q4fb);
+  // ── Q5: Risk ─────────────────────────────────────────────────────────
+  const q5ev = state.q5portfolio !== '' && state.q5premium !== ''
+    && !isNaN(parseFloat(state.q5portfolio)) && !isNaN(parseFloat(state.q5premium))
+    && parseFloat(state.q5portfolio) > 0;
+  const rp = a.riskPct5;
+
+  let riskClass = '';
+  let riskMsg = '';
+  if (q5ev && rp !== null) {
+    if (rp < 2)      { riskClass = 'warn'; riskMsg = 'Under 2% — conservative, consider sizing up slightly'; }
+    else if (rp > 5) { riskClass = 'fail'; riskMsg = rp.toFixed(1) + '% — above the recommended 2–5% cap'; }
+    else             { riskClass = 'pass'; riskMsg = rp.toFixed(1) + '% — right in the 2–5% sweet spot'; }
   }
 
-  // ── Q5 ──────────────────────────────────────────────────────────────────
-  const q5ev = state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(parseFloat(state.q5portfolio)) && !isNaN(parseFloat(state.q5premium)) && parseFloat(state.q5portfolio) > 0;
-  const rp = a.riskPct5;
   const q5div = document.createElement('div');
   q5div.className = cardCls(q5ev ? a.q5 : null);
-  const riskMsg = q5ev ? (rp < 2 ? 'Under 2% — conservative, consider sizing up slightly'
-    : rp > 5 ? `${rp.toFixed(1)}% — above the recommended 2–5% cap`
-    : `${rp.toFixed(1)}% — right in the 2–5% sweet spot`) : '';
   q5div.innerHTML = `
     <div class="q-main">
       <div class="${numCls(q5ev ? a.q5 : null)}">5</div>
@@ -411,7 +621,9 @@ function render() {
             <div class="num-input-wrap">
               <span class="num-prefix">$</span>
               <input class="num-input" type="text" inputmode="decimal" placeholder="10000"
-                id="inp-q5port" value="${state.q5portfolio}" oninput="state.q5portfolio=this.value;render();" style="width:105px" />
+                id="inp-q5port" value="${state.q5portfolio}"
+                oninput="state.q5portfolio=this.value;render();"
+                style="width:105px" />
             </div>
           </div>
           <div class="input-group">
@@ -419,26 +631,44 @@ function render() {
             <div class="num-input-wrap">
               <span class="num-prefix">$</span>
               <input class="num-input" type="text" inputmode="decimal" placeholder="300"
-                id="inp-q5prem" value="${state.q5premium}" oninput="state.q5premium=this.value;render();" style="width:105px" />
+                id="inp-q5prem" value="${state.q5premium}"
+                oninput="state.q5premium=this.value;render();"
+                style="width:105px" />
             </div>
           </div>
         </div>
-        ${q5ev ? `<div class="risk-display ${rp > 5 ? 'fail' : 'pass'} show"><span class="risk-pct">${rp.toFixed(1)}%</span><span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span></div>` : ''}
+        ${q5ev ? `
+        <div class="risk-display ${riskClass} show">
+          <span class="risk-pct">${rp.toFixed(1)}%</span>
+          <span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span>
+        </div>` : ''}
       </div>
     </div>
-    ${q5ev && rp <= 5 && rp >= 2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">✅ Risk is sized appropriately.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.</div>` : ''}
-    ${q5ev && rp < 2 ? `<div class="q-feedback yes-fb show"><div class="fb-title">🟡 You're being conservative — that's okay.</div>At <strong>${rp.toFixed(1)}%</strong>, your position is below the 2–5% range we recommend. This is fine, especially when you're learning. Just know the dollar upside will be proportionally small. Consider sizing up slightly once you're comfortable.</div>` : ''}
-    ${q5ev && rp > 5 ? `<div class="q-feedback no-fb show"><div class="fb-title">🚫 Risk exceeds the recommended 5% cap.</div>At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.</div>` : ''}
+    ${q5ev && rp <= 5 && rp >= 2 ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">✅ Risk is sized appropriately.</div>
+      At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.
+    </div>` : ''}
+    ${q5ev && rp < 2 ? `
+    <div class="q-feedback yes-fb show">
+      <div class="fb-title">🟡 You're being conservative — that's okay.</div>
+      At <strong>${rp.toFixed(1)}%</strong>, your position is below the 2–5% range we recommend. This is fine, especially when you're learning. Just know the dollar upside will be proportionally small. Consider sizing up slightly once you're comfortable.
+    </div>` : ''}
+    ${q5ev && rp > 5 ? `
+    <div class="q-feedback no-fb show">
+      <div class="fb-title">🚫 Risk exceeds the recommended 5% cap.</div>
+      At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.
+    </div>` : ''}
   `;
   c.appendChild(q5div);
 
-  // Restore focus after DOM rebuild
+  // Restore focus
   if (focusedId) {
     const el = document.getElementById(focusedId);
     if (el) {
       el.focus();
       if (cursorPos !== null && el.setSelectionRange) {
-        el.setSelectionRange(cursorPos, cursorPos);
+        try { el.setSelectionRange(cursorPos, cursorPos); } catch(e) {}
       }
     }
   }
@@ -457,29 +687,34 @@ function updateScore(a) {
   const allDone = answers.every(x => x !== null);
   const yeses = answers.filter(x => x === true).length;
 
-  const panel = document.getElementById('scorePanel');
-  const rw    = document.getElementById('resetWrap');
-  if (!allDone) { panel.classList.remove('show'); rw.style.display='none'; return; }
+  const panel  = document.getElementById('scorePanel');
+  const rw     = document.getElementById('resetWrap');
+  if (!allDone) { panel.classList.remove('show'); rw.style.display = 'none'; return; }
 
-  panel.classList.add('show'); rw.style.display='block';
-  panel.className = 'score-panel show ' + (yeses===5?'all-pass':yeses<=1?'all-fail':'partial');
-  document.getElementById('scoreNum').textContent = `${yeses} / 5`;
-  const pct = Math.round((yeses/5)*100);
-  document.getElementById('scorePct').textContent = pct+'%';
+  panel.classList.add('show');
+  rw.style.display = 'block';
+  panel.className = 'score-panel show ' + (yeses === 5 ? 'all-pass' : yeses <= 1 ? 'all-fail' : 'partial');
+
+  document.getElementById('scoreNum').textContent = yeses + ' / 5';
+  const pct = Math.round((yeses / 5) * 100);
+  document.getElementById('scorePct').textContent = pct + '%';
+
   const bar = document.getElementById('scoreBar');
-  bar.style.width='0%';
-  setTimeout(()=>{ bar.style.width=pct+'%'; },50);
-  bar.style.background = yeses===5?'#0D9E6E':yeses<=1?'#D94F2A':'#F5853F';
+  bar.style.width = '0%';
+  setTimeout(() => { bar.style.width = pct + '%'; }, 50);
+  bar.style.background = yeses === 5 ? '#0D9E6E' : yeses <= 1 ? '#D94F2A' : '#F5853F';
 
   const badge = document.getElementById('verdictBadge');
   const sub   = document.getElementById('scoreSub');
-  if (yeses===5)      { badge.textContent='✓ Ready to Trade'; badge.className='verdict-badge badge-pass'; sub.textContent="All checks passed — you've done the work."; }
-  else if (yeses===4) { badge.textContent='⚡ Almost Ready';  badge.className='verdict-badge badge-warn'; sub.textContent='One concern to resolve before entering.'; }
-  else if (yeses>=2)  { badge.textContent='⚠️ Not Yet';       badge.className='verdict-badge badge-warn'; sub.textContent='Multiple issues — revisit before trading.'; }
-  else                { badge.textContent='🚫 Do Not Trade';  badge.className='verdict-badge badge-stop'; sub.textContent='Too many red flags. Protect your capital.'; }
+  if (yeses === 5)     { badge.textContent = '✓ Ready to Trade'; badge.className = 'verdict-badge badge-pass'; sub.textContent = "All checks passed — you've done the work."; }
+  else if (yeses === 4){ badge.textContent = '⚡ Almost Ready';  badge.className = 'verdict-badge badge-warn'; sub.textContent = 'One concern to resolve before entering.'; }
+  else if (yeses >= 2) { badge.textContent = '⚠️ Not Yet';       badge.className = 'verdict-badge badge-warn'; sub.textContent = 'Multiple issues — revisit before trading.'; }
+  else                 { badge.textContent = '🚫 Do Not Trade';  badge.className = 'verdict-badge badge-stop'; sub.textContent = 'Too many red flags. Protect your capital.'; }
 
   const labels = ['Thesis','Delta','Expiry','Theta','Risk'];
-  document.getElementById('breakdown').innerHTML = answers.map((v,i)=>`<span class="bd-pill ${v?'bd-yes':'bd-no'}">${v?'✓':'✗'} ${labels[i]}</span>`).join('');
+  document.getElementById('breakdown').innerHTML = answers.map((v, i) =>
+    `<span class="bd-pill ${v ? 'bd-yes' : 'bd-no'}">${v ? '✓' : '✗'} ${labels[i]}</span>`
+  ).join('');
 }
 
 function setQ1(val) {
@@ -488,9 +723,9 @@ function setQ1(val) {
 }
 
 function resetAll() {
-  Object.assign(state,{q1:null,q2delta:'',q3:null,q4theta:'',q5portfolio:'',q5premium:''});
+  Object.assign(state, { q1: null, q2delta: '', q3: null, q4theta: '', q5portfolio: '', q5premium: '' });
   render();
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 render();
