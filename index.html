@@ -295,6 +295,39 @@
   }
   .btn-reset:hover { border-color: var(--orange); color: var(--orange); }
 
+  /* ── TOPBAR ──────────────────────────────────────────────────────────── */
+  .topbar {
+    background: #1a1108;
+    padding: 11px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-wordmark {
+    font-family: Georgia, serif; font-style: italic;
+    font-size: 1.2rem; color: #fff;
+  }
+  .btn-back {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 999px; padding: 5px 14px;
+    text-decoration: none; transition: background 0.15s;
+  }
+  .btn-back:hover { background: rgba(255,255,255,0.15); }
+  .btn-back-arrow { color: #d4a87a; font-size: 0.8rem; line-height: 1; }
+  .btn-back-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d4a87a;
+    font-family: system-ui, sans-serif;
+  }
+  .topbar-dot {
+    width: 22px; height: 22px; background: #F5853F; border-radius: 5px; flex-shrink: 0;
+  }
+
   /* ── FOOTER ──────────────────────────────────────────────────────────── */
   .footer {
     max-width: 760px; margin: 2.5rem auto 0; text-align: center;
@@ -319,12 +352,18 @@
 </head>
 <body>
 
+<!-- TOPBAR -->
+<div class="topbar">
+  <span class="topbar-wordmark">demystified</span>
+  <a href="https://options101-hub.vercel.app/" class="btn-back">
+    <span class="btn-back-arrow">←</span>
+    <span class="btn-back-label">Options 101 Hub</span>
+  </a>
+  <div class="topbar-dot"></div>
+</div>
+
 <!-- HEADER -->
 <div class="header">
-  <div class="header-top">
-    <span class="wordmark">demystified</span>
-    <div class="logo-box"></div>
-  </div>
   <div class="divider"></div>
   <h1>Pre-Trade Checklist</h1>
   <p class="subtitle">5 questions to ask yourself before buying any options contract.</p>
