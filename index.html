@@ -32,6 +32,10 @@
     background: linear-gradient(150deg, #faf5ee, #f3e9d8);
     font-family: Georgia, serif;
     color: var(--ink);
+    padding: 0;
+    margin: 0;
+  }
+  .page-content {
     padding: 2rem 1rem 4rem;
   }
 
@@ -297,23 +301,14 @@
 
   /* ── TOPBAR ──────────────────────────────────────────────────────────── */
   .topbar {
-    background: #1a1108;
-    padding: 11px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: #1a1108; padding: 11px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100;
   }
-  .topbar-wordmark {
-    font-family: Georgia, serif; font-style: italic;
-    font-size: 1.2rem; color: #fff;
-  }
+  .topbar-wordmark { font-family: Georgia, serif; font-style: italic; font-size: 1.2rem; color: #fff; }
   .btn-back {
     display: flex; align-items: center; gap: 6px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
     border-radius: 999px; padding: 5px 14px;
     text-decoration: none; transition: background 0.15s;
   }
@@ -321,12 +316,14 @@
   .btn-back-arrow { color: #d4a87a; font-size: 0.8rem; line-height: 1; }
   .btn-back-label {
     font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #d4a87a;
-    font-family: system-ui, sans-serif;
+    text-transform: uppercase; color: #d4a87a; font-family: system-ui, sans-serif;
   }
-  .topbar-dot {
-    width: 22px; height: 22px; background: #F5853F; border-radius: 5px; flex-shrink: 0;
-  }
+  .topbar-dot { width: 22px; height: 22px; background: #F5853F; border-radius: 5px; flex-shrink: 0; }
+
+  /* ── HEADER ──────────────────────────────────────────────────────────── */
+  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-family: Georgia, serif; font-style: italic; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em; }
+  .logo-box { width: 32px; height: 32px; background: var(--orange); border-radius: 7px; flex-shrink: 0; }
 
   /* ── FOOTER ──────────────────────────────────────────────────────────── */
   .footer {
@@ -362,6 +359,7 @@
   <div class="topbar-dot"></div>
 </div>
 
+<div class="page-content">
 <!-- HEADER -->
 <div class="header">
   <div class="divider"></div>
@@ -769,5 +767,7 @@ function resetAll() {
 
 render();
 </script>
+</div><!-- /.page-content -->
+
 </body>
 </html>
