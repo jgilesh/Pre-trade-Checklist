@@ -35,46 +35,68 @@
     padding: 0;
     margin: 0;
   }
-  .page-content {
-    padding: 2rem 1rem 4rem;
-  }
+  .page-content { padding: 2rem 1rem 4rem; }
 
   /* ── HEADER ─────────────────────────────────────────────────────────── */
-  .header { max-width: 760px; margin: 0 auto 2rem; }
-  .header-top { display: flex; justify-content: space-between; align-items: center; }
-  .wordmark { font-style: italic; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em; }
-  .logo-box { width: 32px; height: 32px; background: var(--orange); border-radius: 7px; flex-shrink: 0; }
+  .header { max-width: 760px; margin: 0 auto 1.75rem; }
   .divider { height: 2px; background: linear-gradient(to right, var(--orange) 0%, transparent 70%); margin: 0.6rem 0 1.5rem; }
   h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); color: var(--ink); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.4rem; }
   .subtitle { font-family: system-ui, sans-serif; font-size: 0.95rem; color: var(--lbl); }
 
-  /* ── GREEKS SUMMARY ──────────────────────────────────────────────────── */
-  .greeks-wrap { max-width: 760px; margin: 0 auto 1.75rem; }
   .section-eyebrow {
     font-family: system-ui, sans-serif;
     font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--lbl); margin-bottom: 0.65rem;
   }
-  .greeks-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
+
+  /* ── STYLE PICKER ────────────────────────────────────────────────────── */
+  .style-wrap { max-width: 760px; margin: 0 auto 1.75rem; }
+  .style-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;
+  }
+  .btn-style {
+    background: var(--card); border: 2px solid var(--border); border-radius: 12px;
+    padding: 0.85rem 0.7rem; cursor: pointer; text-align: left;
+    transition: all 0.16s; font-family: Georgia, serif;
+  }
+  .btn-style:hover { border-color: var(--lbl); }
+  .btn-style.active { box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+  .style-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 3px; }
+  .style-desc {
+    font-family: system-ui, sans-serif; font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.35;
+  }
+  .style-prompt {
+    margin-top: 0.85rem; padding: 0.7rem 1rem; border-radius: 10px;
+    background: #fff4eb; border: 1.5px solid #fad0a8;
+    font-family: system-ui, sans-serif; font-size: 0.83rem; color: #6b4b28;
+    text-align: center;
+  }
+
+  /* ── PARAMETER STRIP ─────────────────────────────────────────────────── */
+  .params-wrap { max-width: 760px; margin: 0 auto 1.75rem; display: none; }
+  .params-wrap.show { display: block; }
+  .params-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
     border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
   }
-  .greek-col { display: flex; flex-direction: column; }
-  .greek-col + .greek-col { border-left: 1px solid var(--border); }
-  .greek-header {
-    background: var(--orange); color: #fff; text-align: center;
-    padding: 0.65rem 0.5rem; font-family: system-ui, sans-serif;
-    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  .param-col { display: flex; flex-direction: column; }
+  .param-col + .param-col { border-left: 1px solid var(--border); }
+  .param-header {
+    color: #fff; text-align: center; padding: 0.6rem 0.5rem;
+    font-family: system-ui, sans-serif;
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
   }
-  .greek-row {
-    background: #fef4ec; text-align: center; padding: 0.65rem 0.75rem;
-    font-family: system-ui, sans-serif; font-size: 0.82rem; color: var(--ink);
-    border-top: 1px solid #f0dfc8; line-height: 1.45; flex: 1;
+  .param-row {
+    background: #fff8f2; text-align: center; padding: 0.6rem 0.6rem;
+    font-family: Georgia, serif; font-size: 0.92rem; font-weight: 700; color: var(--ink);
+    border-top: 1px solid #f0dfc8; flex: 1;
+    display: flex; align-items: center; justify-content: center;
   }
-  .greek-row.alt { background: #fff8f2; }
-  .greeks-quote {
-    text-align: center; margin-top: 0.85rem;
-    font-size: 0.83rem; font-style: italic; color: var(--lbl);
+  .param-note {
+    background: #fef4ec; text-align: center; padding: 0.5rem 0.6rem;
+    font-family: system-ui, sans-serif; font-size: 0.68rem; color: var(--lbl);
+    border-top: 1px solid #f0dfc8; line-height: 1.4;
   }
 
   /* ── CALLOUT ─────────────────────────────────────────────────────────── */
@@ -88,6 +110,7 @@
 
   /* ── QUESTION CARDS ──────────────────────────────────────────────────── */
   .questions { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+  .questions.locked { opacity: 0.4; pointer-events: none; filter: saturate(0.4); }
 
   .q-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
@@ -95,22 +118,24 @@
   }
   .q-card::before {
     content: ''; position: absolute; top: 0; left: 0;
-    width: 4px; height: 100%; background: var(--orange); transition: background 0.2s;
+    width: 4px; height: 100%; background: var(--inp-bd); transition: background 0.2s;
   }
   .q-card.answered-yes::before { background: var(--green); }
   .q-card.answered-no::before  { background: var(--red); }
+  .q-card.answered-info::before { background: var(--gold); }
 
   .q-main { padding: 1.5rem 1.5rem 1.25rem 1.75rem; display: flex; align-items: flex-start; gap: 1rem; }
 
   .q-num {
     flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-    background: var(--inp-bg); color: var(--orange);
+    background: var(--inp-bg); color: var(--lbl);
     font-size: 0.85rem; font-weight: 700; font-family: system-ui, sans-serif;
     display: flex; align-items: center; justify-content: center;
     transition: background 0.2s, color 0.2s; margin-top: 1px;
   }
-  .q-num.answered-yes { background: var(--yes-bg); color: var(--green); }
-  .q-num.answered-no  { background: var(--no-bg);  color: var(--red); }
+  .q-num.answered-yes  { background: var(--yes-bg); color: var(--green); }
+  .q-num.answered-no   { background: var(--no-bg);  color: var(--red); }
+  .q-num.answered-info { background: #fdf6e6; color: #8a6d1f; }
 
   .q-body { flex: 1; min-width: 0; }
 
@@ -177,36 +202,22 @@
 
   /* eval pill */
   .eval-tag {
-    display: none; align-items: center; gap: 0.4rem;
+    display: flex; align-items: center; gap: 0.4rem;
     padding: 0.45rem 0.85rem; border-radius: 999px;
     font-family: system-ui, sans-serif; font-size: 0.75rem; font-weight: 700;
     letter-spacing: 0.04em; white-space: nowrap; margin-bottom: 2px;
   }
-  .eval-tag.show { display: flex; }
   .eval-tag.pass { background: var(--yes-bg); color: var(--green); border: 1px solid var(--yes-bd); }
   .eval-tag.fail { background: var(--no-bg);  color: var(--red);   border: 1px solid var(--no-bd); }
-
-  /* ── YES / NO ────────────────────────────────────────────────────────── */
-  .q-actions { display: flex; gap: 0.6rem; margin-top: 1rem; }
-  .btn-yn {
-    flex: 1; max-width: 100px; padding: 0.55rem 0; border-radius: 8px;
-    border: 1.5px solid var(--border); background: transparent;
-    font-family: system-ui, sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
-    color: var(--lbl); transition: all 0.15s;
-  }
-  .btn-yn:hover { border-color: var(--orange); color: var(--orange); }
-  .btn-yn.active-yes { background: var(--yes-bg); border-color: var(--green); color: var(--green); }
-  .btn-yn.active-no  { background: var(--no-bg);  border-color: var(--red);   color: var(--red); }
+  .eval-tag.info { background: #fdf6e6; color: #8a6d1f; border: 1px solid #ecd9a8; }
 
   /* ── RISK DISPLAY ────────────────────────────────────────────────────── */
   .risk-display {
     margin-top: 0.85rem; padding: 0.85rem 1rem; border-radius: 10px;
     font-family: system-ui, sans-serif; font-size: 0.82rem;
-    display: none; animation: fadeSlide 0.2s ease; flex-wrap: wrap;
-    align-items: center; gap: 0.6rem 1rem;
+    animation: fadeSlide 0.2s ease; flex-wrap: wrap;
+    align-items: center; gap: 0.6rem 1rem; display: flex;
   }
-  .risk-display.show { display: flex; }
   .risk-display.pass { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
   .risk-display.warn { background: #fff9e8; border: 1px solid #f5d990; color: #7a5a00; }
   .risk-display.fail { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
@@ -216,81 +227,47 @@
   .q-feedback {
     margin: 0 1.5rem 1.5rem 1.75rem; border-radius: 10px;
     padding: 1rem 1.15rem; font-family: system-ui, sans-serif;
-    font-size: 0.83rem; line-height: 1.6; display: none;
+    font-size: 0.83rem; line-height: 1.6; display: block;
     animation: fadeSlide 0.22s ease;
   }
-  .q-feedback.show { display: block; }
-  .q-feedback.yes-fb { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
-  .q-feedback.no-fb  { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
+  .q-feedback.yes-fb  { background: var(--yes-bg); border: 1px solid var(--yes-bd); color: #065f46; }
+  .q-feedback.no-fb   { background: var(--no-bg);  border: 1px solid var(--no-bd);  color: #7f1d1d; }
+  .q-feedback.info-fb { background: #fdf6e6; border: 1px solid #ecd9a8; color: #6b5410; }
   .fb-title { font-weight: 700; margin-bottom: 0.3rem; font-size: 0.88rem; }
-
-  /* ── DONT-ENTER WARNING ──────────────────────────────────────────────── */
-  .no-enter-warn {
-    margin-top: 0.65rem; padding: 0.6rem 0.9rem;
-    background: var(--no-bg); border: 1px solid var(--no-bd); border-radius: 8px;
-    font-family: system-ui, sans-serif; font-size: 0.75rem;
-    color: #7f1d1d; font-weight: 600; line-height: 1.5;
-    display: none;
-  }
-  .no-enter-warn.show { display: block; }
 
   @keyframes fadeSlide {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── SCORE PANEL ─────────────────────────────────────────────────────── */
-  .score-panel {
+  /* ── FLAGGED PANEL ───────────────────────────────────────────────────── */
+  .flag-panel {
     max-width: 760px; margin: 2rem auto 0; border-radius: 14px;
-    padding: 1.8rem 2rem; display: none; animation: fadeSlide 0.3s ease;
+    padding: 1.5rem 1.75rem; display: none; animation: fadeSlide 0.3s ease;
   }
-  .score-panel.show { display: block; }
-  .score-panel.all-pass { background: linear-gradient(130deg, #052e16, #064e3b); }
-  .score-panel.partial  { background: linear-gradient(130deg, #1a1108, #2c1d0e); }
-  .score-panel.all-fail { background: linear-gradient(130deg, #3b0606, #1a0808); }
-
-  .score-top {
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1rem; margin-bottom: 1.6rem;
+  .flag-panel.show { display: block; }
+  .flag-panel.clean { background: linear-gradient(130deg, #052e16, #064e3b); }
+  .flag-panel.flagged { background: linear-gradient(130deg, #1a1108, #2c1d0e); }
+  .flag-eyebrow {
+    font-family: system-ui, sans-serif; font-size: 0.66rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #9a7a55; margin-bottom: 0.5rem;
   }
-  .score-label {
-    font-family: system-ui, sans-serif; font-size: 0.68rem;
-    letter-spacing: 0.15em; text-transform: uppercase; color: #9a7a55; margin-bottom: 0.3rem;
+  .flag-panel.clean .flag-eyebrow { color: #6ee7b7; }
+  .flag-title { font-family: Georgia, serif; font-size: 1.25rem; color: #fff; line-height: 1.25; margin-bottom: 0.85rem; }
+  .flag-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .flag-item {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    font-family: system-ui, sans-serif; font-size: 0.83rem; color: #f0d8d2; line-height: 1.55;
   }
-  .score-panel.all-pass .score-label { color: #6ee7b7; }
-  .score-num { font-size: 2.5rem; font-weight: 700; color: #fff; line-height: 1; font-family: Georgia, serif; }
-  .score-sub { font-family: system-ui, sans-serif; font-size: 0.78rem; color: #9a7a55; margin-top: 0.2rem; }
-  .score-panel.all-pass .score-sub { color: #a7f3d0; }
-
-  .verdict-badge {
-    padding: 0.55rem 1.4rem; border-radius: 999px;
-    font-family: system-ui, sans-serif; font-weight: 700;
-    font-size: 0.85rem; letter-spacing: 0.06em; color: #fff;
+  .flag-x { color: #fca5a5; font-weight: 700; flex-shrink: 0; }
+  .flag-sub {
+    font-family: system-ui, sans-serif; font-size: 0.8rem;
+    color: #a7f3d0; line-height: 1.6;
   }
-  .badge-pass { background: var(--green); }
-  .badge-warn { background: var(--orange); }
-  .badge-stop { background: var(--red); }
-
-  .score-bar-wrap { margin-bottom: 1.4rem; }
-  .score-bar-label { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
-  .score-bar-label span {
-    font-family: system-ui, sans-serif; font-size: 0.68rem;
-    letter-spacing: 0.12em; text-transform: uppercase; color: #9a7a55;
-  }
-  .score-panel.all-pass .score-bar-label span { color: #6ee7b7; }
-  .score-bar-bg { height: 7px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
-  .score-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-
-  .breakdown { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .bd-pill {
-    font-family: system-ui, sans-serif; font-size: 0.72rem;
-    font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 999px;
-  }
-  .bd-yes { background: rgba(13,158,110,0.2); color: #6ee7b7; }
-  .bd-no  { background: rgba(217,79,42,0.2);  color: #fca5a5; }
 
   /* ── RESET ───────────────────────────────────────────────────────────── */
-  .reset-wrap { max-width: 760px; margin: 1.5rem auto 0; text-align: center; }
+  .reset-wrap { max-width: 760px; margin: 1.5rem auto 0; text-align: center; display: none; }
+  .reset-wrap.show { display: block; }
   .btn-reset {
     background: none; border: 1.5px solid var(--border); border-radius: 8px;
     padding: 0.55rem 1.6rem; font-family: system-ui, sans-serif;
@@ -320,11 +297,6 @@
   }
   .topbar-dot { width: 22px; height: 22px; background: #F5853F; border-radius: 5px; flex-shrink: 0; }
 
-  /* ── HEADER ──────────────────────────────────────────────────────────── */
-  .header-top { display: flex; justify-content: space-between; align-items: center; }
-  .wordmark { font-family: Georgia, serif; font-style: italic; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.02em; }
-  .logo-box { width: 32px; height: 32px; background: var(--orange); border-radius: 7px; flex-shrink: 0; }
-
   /* ── FOOTER ──────────────────────────────────────────────────────────── */
   .footer {
     max-width: 760px; margin: 2.5rem auto 0; text-align: center;
@@ -333,17 +305,16 @@
   .footer em { font-style: italic; }
 
   /* ── MOBILE ──────────────────────────────────────────────────────────── */
+  @media (max-width: 620px) {
+    .style-grid { grid-template-columns: repeat(2, 1fr); }
+    .params-grid { grid-template-columns: repeat(2, 1fr); }
+    .param-col:nth-child(1), .param-col:nth-child(2) { border-bottom: 1px solid var(--border); }
+    .param-col:nth-child(3) { border-left: none; }
+  }
   @media (max-width: 480px) {
-    .greeks-grid { grid-template-columns: 1fr; }
-    .greek-col { flex-direction: row; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
-    .greek-col:last-child { border-bottom: none; }
-    .greek-col + .greek-col { border-left: none; border-top: 1px solid var(--border); }
-    .greek-header { width: 100%; text-align: left; padding: 0.5rem 1rem; }
-    .greek-row { flex: 1; min-width: 45%; text-align: left; padding: 0.55rem 0.9rem; border-top: none; border-right: 1px solid #f0dfc8; }
-    .greek-row:last-child { border-right: none; }
-    .score-panel { padding: 1.4rem 1.2rem; }
     .q-main { padding: 1.25rem 1.25rem 1rem 1.5rem; }
     .q-feedback { margin: 0 1.25rem 1.25rem 1.5rem; }
+    .flag-panel { padding: 1.3rem 1.2rem; }
   }
 </style>
 </head>
@@ -360,407 +331,599 @@
 </div>
 
 <div class="page-content">
-<!-- HEADER -->
+
 <div class="header">
   <div class="divider"></div>
   <h1>Pre-Trade Checklist</h1>
-  <p class="subtitle">5 questions to ask yourself before buying any options contract.</p>
+  <p class="subtitle">Run through these before buying any options contract.</p>
 </div>
 
-<!-- GREEKS SUMMARY -->
-<div class="greeks-wrap">
-  <div class="section-eyebrow">📐 The 3 Greeks Beginners Need to Know</div>
-  <div class="greeks-grid">
-    <div class="greek-col">
-      <div class="greek-header">Delta</div>
-      <div class="greek-row">Your direction meter</div>
-      <div class="greek-row alt">Aim for .40 – .60</div>
-    </div>
-    <div class="greek-col">
-      <div class="greek-header">Theta</div>
-      <div class="greek-row">Your time clock</div>
-      <div class="greek-row alt">Lower = better for buyers</div>
-    </div>
-    <div class="greek-col">
-      <div class="greek-header">Vega</div>
-      <div class="greek-row">Your volatility gauge</div>
-      <div class="greek-row alt">Watch before earnings</div>
-    </div>
-  </div>
-  <div class="greeks-quote">"If these three are working in your favor, you're in a strong position."</div>
+<!-- STYLE PICKER -->
+<div class="style-wrap">
+  <div class="section-eyebrow">🎯 Step 1 · What kind of trade is this?</div>
+  <div class="style-grid" id="styleGrid"></div>
+  <div class="style-prompt" id="stylePrompt">Pick a trade style above. The checklist below adjusts to match it.</div>
 </div>
 
-<!-- CALLOUT -->
+<!-- PARAMETER STRIP -->
+<div class="params-wrap" id="paramsWrap">
+  <div class="section-eyebrow" id="paramsEyebrow">📐 Your targets for this style</div>
+  <div class="params-grid" id="paramsGrid"></div>
+</div>
+
 <div class="callout">
   <span class="callout-icon">📋</span>
-  <span>Work through each question below. Some will ask for your actual numbers — the tool evaluates them automatically. Your score and personalized feedback appear once all five are complete.</span>
+  <div>Every check below is graded against the style you picked. Anything outside the range gets flagged so you know what to look at again before you place the order.</div>
 </div>
 
-<!-- QUESTIONS -->
-<div class="questions" id="questions"></div>
+<div class="questions locked" id="questions"></div>
 
-<!-- SCORE PANEL -->
-<div class="score-panel" id="scorePanel">
-  <div class="score-top">
-    <div>
-      <div class="score-label">Your Score</div>
-      <div class="score-num" id="scoreNum">0 / 5</div>
-      <div class="score-sub" id="scoreSub"></div>
-    </div>
-    <div class="verdict-badge" id="verdictBadge"></div>
-  </div>
-  <div class="score-bar-wrap">
-    <div class="score-bar-label">
-      <span>Readiness</span>
-      <span id="scorePct">0%</span>
-    </div>
-    <div class="score-bar-bg">
-      <div class="score-bar-fill" id="scoreBar" style="width:0%"></div>
-    </div>
-  </div>
-  <div class="breakdown" id="breakdown"></div>
-</div>
+<div class="flag-panel" id="flagPanel"></div>
 
-<div class="reset-wrap" id="resetWrap" style="display:none">
+<div class="reset-wrap" id="resetWrap">
   <button class="btn-reset" onclick="resetAll()">↩ Start Over</button>
 </div>
 
 <div class="footer"><em>demystified</em> · for educational purposes only</div>
 
 <script>
+/* ══════════════════════════════════════════════════════════════════════
+   STYLE DEFINITIONS — thresholds mirror The Setup module
+   ══════════════════════════════════════════════════════════════════════ */
+const STYLES = {
+  scalp: {
+    label: 'Scalp', color: '#C0392B', desc: 'Minutes to an hour',
+    delta: [0.60, 0.70],
+    dte: [7, 14],
+    premiumMax: 3,
+    thetaGate: false,
+    thetaLabel: 'Barely matters',
+    deltaWhy: 'A scalp needs a contract that reacts hard and fast, so Delta runs higher than a swing.',
+    dteWhy: 'Short-dated keeps the premium cheap for a trade you are closing the same session.',
+    thetaWhy: 'You are out within the hour, so decay never gets a chance to work against you. Worth knowing, not worth failing the trade over.',
+    premiumWhy: 'Fast trades stay small. Keep the premium at 3% of the account or less.'
+  },
+  daytrade: {
+    label: 'Day Trade', color: '#D94F2A', desc: 'Hours · same-day exit',
+    delta: [0.60, 0.70],
+    dte: [7, 14],
+    premiumMax: 3,
+    thetaGate: false,
+    thetaLabel: 'Minor factor',
+    deltaWhy: 'Same as a scalp, you need the contract responding quickly to an intraday move.',
+    dteWhy: 'Short-dated keeps the premium cheap for a position you close before the bell.',
+    thetaWhy: 'You are out before the close, so a single day of decay is a minor factor. Worth knowing, not worth failing the trade over.',
+    premiumWhy: 'Same-day trades stay small. Keep the premium at 3% of the account or less.'
+  },
+  swing: {
+    label: 'Swing Trade', color: '#F5853F', desc: 'Days to a few weeks',
+    delta: [0.40, 0.60],
+    dte: [30, 60],
+    premiumMax: 5,
+    thetaGate: true,
+    thetaLabel: '50% of Delta max',
+    deltaWhy: 'The balance point between a real chance of working and a premium you can afford.',
+    dteWhy: 'Enough time for the setup to play out without paying for time you will never use.',
+    thetaWhy: 'You are carrying this for days or weeks, so decay is a real cost. Keep it under half your Delta.',
+    premiumWhy: 'Between 3% and 5% of the account. This is what carries you through a losing streak.'
+  },
+  leap: {
+    label: 'LEAP', color: '#7C5CBF', desc: 'A year or more',
+    delta: [0.70, 0.80],
+    dte: [365, null],
+    premiumMax: 5,
+    thetaGate: true,
+    thetaLabel: '50% of Delta max',
+    deltaWhy: 'Deep in the money, so the contract behaves close to the stock itself.',
+    dteWhy: 'A year or more of time is the whole point. A temporary dip cannot wipe you out.',
+    thetaWhy: 'Deep in the money contracts carry far less decay by design. It should come in low here.',
+    premiumWhy: 'Between 3% and 5% of the account, same as a swing.'
+  }
+};
+const STYLE_ORDER = ['scalp', 'daytrade', 'swing', 'leap'];
+const OI_MIN = 500;
+
 const state = {
+  style: null,
   q1: null,
   q2delta: '',
-  q3: null,
+  q3dte: '',
   q4theta: '',
   q5portfolio: '',
-  q5premium: ''
+  q5premium: '',
+  q6oi: ''
 };
 
-function getAnswers() {
-  const q1 = state.q1 !== null ? true : null;
-
-  const d = parseFloat(state.q2delta);
-  const q2 = (state.q2delta !== '' && !isNaN(d)) ? (d >= 0.40 && d <= 0.60) : null;
-
-  const q3 = state.q3;
-
-  const theta4 = parseFloat(state.q4theta);
-  const thetaPct4 = (!isNaN(d) && d > 0 && state.q4theta !== '' && !isNaN(theta4))
-    ? (Math.abs(theta4) / d) * 100 : null;
-  const q4 = thetaPct4 !== null ? thetaPct4 <= 50 : null;
-
-  const port5 = parseFloat(state.q5portfolio);
-  const prem5 = parseFloat(state.q5premium);
-  const riskPct5 = (port5 > 0) ? (prem5 / port5) * 100 : null;
-  const q5 = (state.q5portfolio !== '' && state.q5premium !== '' && !isNaN(port5) && !isNaN(prem5) && port5 > 0)
-    ? (riskPct5 <= 5) : null;
-
-  return { q1, q2, q3, q4, q5, d, theta4, thetaPct4, riskPct5 };
+/* ── helpers ─────────────────────────────────────────────────────────── */
+function num(v) { const n = parseFloat(v); return (v !== '' && !isNaN(n)) ? n : null; }
+function fmtRange(r, suffix) {
+  suffix = suffix || '';
+  if (r[1] === null) return r[0] + suffix + '+';
+  return r[0] + suffix + ' – ' + r[1] + suffix;
 }
-
+function fmtDelta(r) { return r[0].toFixed(2) + ' – ' + r[1].toFixed(2); }
+function fmtDte(r) { return r[1] === null ? r[0] + '+ days' : r[0] + ' – ' + r[1] + ' days'; }
 function numCls(pass) {
   if (pass === null) return 'q-num';
+  if (pass === 'info') return 'q-num answered-info';
   return 'q-num ' + (pass ? 'answered-yes' : 'answered-no');
 }
 function cardCls(pass) {
   if (pass === null) return 'q-card';
+  if (pass === 'info') return 'q-card answered-info';
   return 'q-card ' + (pass ? 'answered-yes' : 'answered-no');
 }
 
+/* ── evaluation ──────────────────────────────────────────────────────── */
+function evaluate() {
+  const S = state.style ? STYLES[state.style] : null;
+  const d = num(state.q2delta);
+  const dte = num(state.q3dte);
+  const th = num(state.q4theta);
+  const port = num(state.q5portfolio);
+  const prem = num(state.q5premium);
+  const oi = num(state.q6oi);
+
+  const r = { d: d, dte: dte, th: th, port: port, prem: prem, oi: oi };
+
+  r.q1 = state.q1 !== null ? true : null;
+  r.q2 = (S && d !== null) ? (d >= S.delta[0] && d <= S.delta[1]) : null;
+
+  if (S && dte !== null) {
+    r.q3 = (dte >= S.dte[0]) && (S.dte[1] === null || dte <= S.dte[1]);
+  } else { r.q3 = null; }
+
+  r.thetaPct = (d !== null && d > 0 && th !== null) ? (Math.abs(th) / d) * 100 : null;
+  if (!S || r.thetaPct === null) { r.q4 = null; }
+  else if (!S.thetaGate) { r.q4 = 'info'; }
+  else { r.q4 = r.thetaPct <= 50; }
+
+  r.riskPct = (port !== null && port > 0 && prem !== null) ? (prem / port) * 100 : null;
+  r.q5 = (S && r.riskPct !== null) ? (r.riskPct <= S.premiumMax) : null;
+
+  r.q6 = (oi !== null) ? (oi >= OI_MIN) : null;
+
+  return r;
+}
+
+/* ── style picker ────────────────────────────────────────────────────── */
+function renderStylePicker() {
+  const g = document.getElementById('styleGrid');
+  g.innerHTML = STYLE_ORDER.map(function (id) {
+    const S = STYLES[id];
+    const on = state.style === id;
+    return '<button class="btn-style' + (on ? ' active' : '') + '" onclick="setStyle(\'' + id + '\')"' +
+      ' style="border-color:' + (on ? S.color : '#e8ddd0') + ';background:' + (on ? S.color + '12' : '#fffcf7') + '">' +
+      '<div class="style-name">' + S.label + '</div>' +
+      '<div class="style-desc" style="color:' + S.color + '">' + S.desc + '</div>' +
+      '</button>';
+  }).join('');
+
+  const prompt = document.getElementById('stylePrompt');
+  if (state.style) {
+    prompt.style.display = 'none';
+  } else {
+    prompt.style.display = 'block';
+  }
+}
+
+function renderParams() {
+  const wrap = document.getElementById('paramsWrap');
+  if (!state.style) { wrap.classList.remove('show'); return; }
+  wrap.classList.add('show');
+  const S = STYLES[state.style];
+  document.getElementById('paramsEyebrow').textContent = '📐 Your targets as a ' + S.label;
+
+  const cols = [
+    { h: 'Delta', v: fmtDelta(S.delta), n: 'Direction meter' },
+    { h: 'Expiration', v: fmtDte(S.dte), n: 'Time in the trade' },
+    { h: 'Theta', v: S.thetaLabel, n: 'Daily decay' },
+    { h: 'Premium', v: 'Max ' + S.premiumMax + '%', n: 'Of portfolio' }
+  ];
+
+  document.getElementById('paramsGrid').innerHTML = cols.map(function (c) {
+    return '<div class="param-col">' +
+      '<div class="param-header" style="background:' + S.color + '">' + c.h + '</div>' +
+      '<div class="param-row">' + c.v + '</div>' +
+      '<div class="param-note">' + c.n + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+/* ── main render ─────────────────────────────────────────────────────── */
 function render() {
   const focusedId = document.activeElement ? document.activeElement.id : null;
   const cursorPos = (document.activeElement && document.activeElement.selectionStart != null)
     ? document.activeElement.selectionStart : null;
 
-  const a = getAnswers();
+  renderStylePicker();
+  renderParams();
+
+  const a = evaluate();
+  const S = state.style ? STYLES[state.style] : null;
   const c = document.getElementById('questions');
   c.innerHTML = '';
+  c.className = state.style ? 'questions' : 'questions locked';
 
-  // ── Q1: Direction ────────────────────────────────────────────────────
-  const q1pass = state.q1 !== null;
+  const styleName = S ? S.label.toLowerCase() : 'trade';
+
+  /* ── Q1: Direction ─────────────────────────────────────────────────── */
   const contractType = state.q1 === 'bull' ? 'CALL' : state.q1 === 'bear' ? 'PUT' : null;
   const q1div = document.createElement('div');
-  q1div.className = q1pass ? 'q-card answered-yes' : 'q-card';
-  q1div.innerHTML = `
-    <div class="q-main">
-      <div class="${q1pass ? 'q-num answered-yes' : 'q-num'}">1</div>
-      <div class="q-body">
-        <span class="q-hint">Direction</span>
-        <div class="q-text">What's my thesis?</div>
-        <div class="q-note">Select your market direction — your contract type will follow automatically.</div>
-        <div class="direction-selector">
-          <button class="btn-dir ${state.q1 === 'bull' ? 'active-bull' : ''}" onclick="setQ1('bull')">📈 Bullish</button>
-          <button class="btn-dir ${state.q1 === 'bear' ? 'active-bear' : ''}" onclick="setQ1('bear')">📉 Bearish</button>
-        </div>
-        ${contractType ? `
-        <div class="contract-result show ${state.q1}">
-          <span>You should be looking at a</span>
-          <span class="type-badge">${contractType}</span>
-          <span>${state.q1 === 'bull' ? 'option — you profit as the stock rises.' : 'option — you profit as the stock falls.'}</span>
-        </div>` : ''}
-      </div>
-    </div>
-    ${q1pass ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">✅ Clear thesis — great start.</div>
-      Knowing your directional conviction before entering is the foundation of every trade. A <strong>${contractType}</strong> gives you the right to
-      ${state.q1 === 'bull' ? 'buy shares at the strike price — your profit grows as the stock rises above it.' : 'sell shares at the strike price — your profit grows as the stock falls below it.'}
-      Without a thesis you're gambling on noise.
-    </div>` : ''}
-  `;
+  q1div.className = cardCls(a.q1);
+  q1div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q1) + '">1</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Direction</span>' +
+        '<div class="q-text">What is my thesis?</div>' +
+        '<div class="q-note">Pick your market direction. The contract type follows from it.</div>' +
+        '<div class="direction-selector">' +
+          '<button class="btn-dir ' + (state.q1 === 'bull' ? 'active-bull' : '') + '" onclick="setQ1(\'bull\')">📈 Bullish</button>' +
+          '<button class="btn-dir ' + (state.q1 === 'bear' ? 'active-bear' : '') + '" onclick="setQ1(\'bear\')">📉 Bearish</button>' +
+        '</div>' +
+        (contractType
+          ? '<div class="contract-result show ' + state.q1 + '">' +
+              '<span>A ' + (state.q1 === 'bull' ? 'bullish' : 'bearish') + ' thesis points to a</span>' +
+              '<span class="type-badge">' + contractType + '</span>' +
+              '<span>' + (state.q1 === 'bull' ? 'option. You profit as the stock rises.' : 'option. You profit as the stock falls.') + '</span>' +
+            '</div>'
+          : '') +
+      '</div>' +
+    '</div>' +
+    (a.q1
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Clear thesis.</div>' +
+          'Knowing your direction before you enter is the foundation of every trade. A <strong>' + contractType + '</strong> gives you the right to ' +
+          (state.q1 === 'bull'
+            ? 'buy shares at the strike price, so your profit grows as the stock rises above it.'
+            : 'sell shares at the strike price, so your profit grows as the stock falls below it.') +
+          ' Without a thesis you are trading noise.' +
+        '</div>'
+      : '');
   c.appendChild(q1div);
 
-  // ── Q2: Delta ────────────────────────────────────────────────────────
-  const q2ev = state.q2delta !== '' && !isNaN(a.d);
+  /* ── Q2: Delta ─────────────────────────────────────────────────────── */
+  const dRange = S ? fmtDelta(S.delta) : '';
   const q2div = document.createElement('div');
-  q2div.className = cardCls(q2ev ? a.q2 : null);
-  q2div.innerHTML = `
-    <div class="q-main">
-      <div class="${numCls(q2ev ? a.q2 : null)}">2</div>
-      <div class="q-body">
-        <span class="q-hint">Greeks · Delta</span>
-        <div class="q-text">Is my Delta between .40 and .60?</div>
-        <div class="q-note">Beginners stay in this range — the sweet spot between probability and cost.</div>
-        <div class="input-row">
-          <div class="input-group">
-            <label>Your Delta</label>
-            <div class="num-input-wrap">
-              <span class="num-prefix">Δ</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="0.50"
-                id="inp-q2delta" value="${state.q2delta}"
-                oninput="state.q2delta=this.value;render();"
-                style="width:80px" />
-            </div>
-          </div>
-          ${q2ev ? `<span class="eval-tag ${a.q2 ? 'pass' : 'fail'} show">
-            ${a.q2 ? '✓ In range (.40–.60)' : a.d < 0.40 ? '✗ Too far OTM' : '✗ High premium ITM'}
-          </span>` : ''}
-        </div>
-      </div>
-    </div>
-    ${q2ev && a.q2 ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">✅ Good Delta range.</div>
-      Your Delta of <strong>${a.d.toFixed(2)}</strong> puts you near at-the-money. This gives your option a solid chance of responding meaningfully to price movement without paying an extreme premium. Deep ITM or far OTM contracts come with traps — this sweet spot keeps your learning curve manageable.
-    </div>` : ''}
-    ${q2ev && !a.q2 ? `
-    <div class="q-feedback no-fb show">
-      <div class="fb-title">⚠️ Delta outside the safe zone for beginners.</div>
-      Your Delta of <strong>${a.d.toFixed(2)}</strong> is ${a.d < 0.40
-        ? 'below .40 — your contract is out-of-the-money. It needs a large move to become profitable and often expires worthless.'
-        : 'above .60 — you\'re likely paying a high premium for the contract.'
-      } As a beginner, drifting outside .40–.60 significantly changes your risk profile. Reassess before continuing.
-    </div>` : ''}
-  `;
+  q2div.className = cardCls(a.q2);
+  q2div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q2) + '">2</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Greeks · Delta</span>' +
+        '<div class="q-text">Is my Delta between ' + (S ? S.delta[0].toFixed(2) + ' and ' + S.delta[1].toFixed(2) : '—') + '?</div>' +
+        '<div class="q-note">' + (S ? S.deltaWhy : 'Pick a trade style to see your range.') + '</div>' +
+        '<div class="input-row">' +
+          '<div class="input-group">' +
+            '<label>Your Delta</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">Δ</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="' + (S ? S.delta[0].toFixed(2) : '0.50') + '"' +
+                ' id="inp-q2delta" value="' + state.q2delta + '"' +
+                ' oninput="state.q2delta=this.value;render();" style="width:80px" />' +
+            '</div>' +
+          '</div>' +
+          (a.q2 !== null
+            ? '<span class="eval-tag ' + (a.q2 ? 'pass' : 'fail') + '">' +
+              (a.q2 ? '✓ In range (' + dRange + ')' : (a.d < S.delta[0] ? '✗ Too low for a ' + styleName : '✗ Too high for a ' + styleName)) +
+              '</span>'
+            : '') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    (a.q2 === true
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Delta is in range.</div>' +
+          'Your Delta of <strong>' + a.d.toFixed(2) + '</strong> sits inside the ' + dRange + ' window for a ' + styleName + '. ' + S.deltaWhy +
+        '</div>'
+      : '') +
+    (a.q2 === false
+      ? '<div class="q-feedback no-fb">' +
+          '<div class="fb-title">⚠️ Delta is outside the range for a ' + styleName + '.</div>' +
+          'Your Delta of <strong>' + a.d.toFixed(2) + '</strong> is ' +
+          (a.d < S.delta[0]
+            ? 'below ' + S.delta[0].toFixed(2) + '. The contract is further out of the money than this style calls for, so it needs a bigger move to do anything.'
+            : 'above ' + S.delta[1].toFixed(2) + '. You are paying up for a deeper contract than this style calls for.') +
+          ' Look at ' + dRange + ' instead, or reconsider whether this is really a ' + styleName + '.' +
+        '</div>'
+      : '');
   c.appendChild(q2div);
 
-  // ── Q3: Expiration ───────────────────────────────────────────────────
+  /* ── Q3: Expiration ────────────────────────────────────────────────── */
+  const dteRange = S ? fmtDte(S.dte) : '';
   const q3div = document.createElement('div');
-  q3div.className = cardCls(state.q3);
-  q3div.innerHTML = `
-    <div class="q-main">
-      <div class="${numCls(state.q3)}">3</div>
-      <div class="q-body">
-        <span class="q-hint">Greeks · Time</span>
-        <div class="q-text">Is my expiration 30+ days out?</div>
-        <div class="q-note">Avoid short-dated contracts — Theta decay accelerates sharply in the final weeks.</div>
-        <div class="q-actions">
-          <button class="btn-yn ${state.q3 === true ? 'active-yes' : ''}" onclick="state.q3=true;render()">✓ Yes</button>
-          <button class="btn-yn ${state.q3 === false ? 'active-no' : ''}" onclick="state.q3=false;render()">✗ No</button>
-        </div>
-      </div>
-    </div>
-    ${state.q3 === true ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">✅ Enough time in the trade.</div>
-      Giving yourself 30+ days means you're not fighting Theta right out of the gate. Short-dated contracts can lose value rapidly even when the stock moves in your favor — Theta decay accelerates sharply in the final weeks. More time = more room for your thesis to play out.
-    </div>` : ''}
-    ${state.q3 === false ? `
-    <div class="q-feedback no-fb show">
-      <div class="fb-title">🚫 Expiration too soon — high time decay risk.</div>
-      Contracts expiring in under 30 days are the most dangerous for beginners. Theta accelerates dramatically near expiration — your option can lose value fast even if the stock goes your way. Weekly options are particularly unforgiving. Consider rolling to a contract further out in time.
-    </div>` : ''}
-  `;
+  q3div.className = cardCls(a.q3);
+  q3div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q3) + '">3</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Greeks · Time</span>' +
+        '<div class="q-text">How many days until expiration?</div>' +
+        '<div class="q-note">' + (S ? 'A ' + styleName + ' calls for ' + dteRange + '. ' + S.dteWhy : 'Pick a trade style to see your range.') + '</div>' +
+        '<div class="input-row">' +
+          '<div class="input-group">' +
+            '<label>Days to Expiration</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">DTE</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="' + (S ? S.dte[0] : '45') + '"' +
+                ' id="inp-q3dte" value="' + state.q3dte + '"' +
+                ' oninput="state.q3dte=this.value;render();" style="width:80px" />' +
+            '</div>' +
+          '</div>' +
+          (a.q3 !== null
+            ? '<span class="eval-tag ' + (a.q3 ? 'pass' : 'fail') + '">' +
+              (a.q3 ? '✓ In range (' + dteRange + ')' : (a.dte < S.dte[0] ? '✗ Expires too soon' : '✗ Too far out')) +
+              '</span>'
+            : '') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    (a.q3 === true
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Expiration fits the style.</div>' +
+          '<strong>' + a.dte + ' days</strong> sits inside the ' + dteRange + ' window for a ' + styleName + '. ' + S.dteWhy +
+        '</div>'
+      : '') +
+    (a.q3 === false
+      ? '<div class="q-feedback no-fb">' +
+          '<div class="fb-title">🚫 Expiration does not match a ' + styleName + '.</div>' +
+          (a.dte < S.dte[0]
+            ? '<strong>' + a.dte + ' days</strong> is shorter than the ' + dteRange + ' this style calls for. Theta accelerates sharply as expiration gets close, so the contract can bleed value even when the stock moves your way.'
+            : '<strong>' + a.dte + ' days</strong> is longer than the ' + dteRange + ' this style calls for. You are paying for time you do not plan to use, which makes the contract more expensive than it needs to be.') +
+          ' Either move to a contract inside the range, or go back up and pick the style that actually matches your plan.' +
+        '</div>'
+      : '');
   c.appendChild(q3div);
 
-  // ── Q4: Theta ────────────────────────────────────────────────────────
-  const deltaEntered = state.q2delta !== '' && !isNaN(parseFloat(state.q2delta));
-  const q4ev = state.q4theta !== '' && !isNaN(a.theta4) && deltaEntered;
-  const thetaPctStr = a.thetaPct4 !== null ? a.thetaPct4.toFixed(1) : null;
-
+  /* ── Q4: Theta ─────────────────────────────────────────────────────── */
+  const thetaPctStr = a.thetaPct !== null ? a.thetaPct.toFixed(1) : null;
+  const deltaEntered = a.d !== null;
   const q4div = document.createElement('div');
-  q4div.className = cardCls(q4ev ? a.q4 : null);
-  q4div.innerHTML = `
-    <div class="q-main">
-      <div class="${numCls(q4ev ? a.q4 : null)}">4</div>
-      <div class="q-body">
-        <span class="q-hint">Greeks · Theta</span>
-        <div class="q-text">Is my Theta manageable?</div>
-        <div class="q-note">Theta should be no more than 50% of your Delta. Uses the Delta you entered in Q2.</div>
-        ${q4ev && !a.q4 ? `<div class="no-enter-warn show">🚫 Don't enter this trade. If you decide to enter anyway — exit today or tomorrow at the latest.</div>` : ''}
-        <div class="input-row">
-          <div class="input-group">
-            <label>Theta (per day)</label>
-            <div class="num-input-wrap">
-              <span class="num-prefix">θ</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="-0.05"
-                id="inp-q4theta" value="${state.q4theta || '-'}"
-                oninput="let v=this.value; if(!v.startsWith('-'))v='-'+v.replace(/-/g,''); state.q4theta=v; render();"
-                onkeydown="if(this.selectionStart===0 && this.selectionEnd<=1 && (event.key==='Backspace'||event.key==='Delete')){event.preventDefault();}"
-                style="width:90px" />
-            </div>
-          </div>
-          ${!deltaEntered ? `<span class="eval-tag fail show">⚠ Enter Delta in Q2 first</span>` : ''}
-          ${q4ev ? `<span class="eval-tag ${a.q4 ? 'pass' : 'fail'} show">${a.q4 ? '✓' : '✗'} ${thetaPctStr}% of Delta</span>` : ''}
-        </div>
-      </div>
-    </div>
-    ${q4ev && a.q4 ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">✅ Theta is within range.</div>
-      Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — under the 50% threshold. Time decay is not working against you at an alarming rate. You're in a position where the trade has room to develop.
-    </div>` : ''}
-    ${q4ev && !a.q4 ? `
-    <div class="q-feedback no-fb show">
-      <div class="fb-title">🚫 Don't enter this trade.</div>
-      Your Theta of <strong>${Math.abs(a.theta4).toFixed(3)}</strong> is <strong>${thetaPctStr}%</strong> of your Delta — above the 50% limit. Time decay is eroding your position faster than any directional move can compensate.
-    </div>` : ''}
-  `;
+  q4div.className = cardCls(a.q4);
+  q4div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q4) + '">4</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Greeks · Theta</span>' +
+        '<div class="q-text">' + (S && !S.thetaGate ? 'How much is Theta costing me per day?' : 'Is my Theta manageable?') + '</div>' +
+        '<div class="q-note">' + (S ? S.thetaWhy : 'Pick a trade style to see how much this matters.') + '</div>' +
+        '<div class="input-row">' +
+          '<div class="input-group">' +
+            '<label>Theta (per day)</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">θ</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="-0.05"' +
+                ' id="inp-q4theta" value="' + (state.q4theta || '-') + '"' +
+                ' oninput="var v=this.value; if(v.indexOf(\'-\')!==0)v=\'-\'+v.replace(/-/g,\'\'); state.q4theta=v; render();"' +
+                ' onkeydown="if(this.selectionStart===0 \u0026\u0026 this.selectionEnd<=1 \u0026\u0026 (event.key===\'Backspace\'||event.key===\'Delete\')){event.preventDefault();}"' +
+                ' style="width:90px" />' +
+            '</div>' +
+          '</div>' +
+          (!deltaEntered && state.q4theta !== '' && state.q4theta !== '-'
+            ? '<span class="eval-tag info">⚠ Enter Delta in check 2 first</span>'
+            : '') +
+          (a.q4 === 'info'
+            ? '<span class="eval-tag info">' + thetaPctStr + '% of Delta · noted</span>'
+            : '') +
+          (a.q4 === true || a.q4 === false
+            ? '<span class="eval-tag ' + (a.q4 ? 'pass' : 'fail') + '">' + (a.q4 ? '✓' : '✗') + ' ' + thetaPctStr + '% of Delta</span>'
+            : '') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    (a.q4 === 'info'
+      ? '<div class="q-feedback info-fb">' +
+          '<div class="fb-title">🟡 Worth knowing, not a dealbreaker here.</div>' +
+          'Your Theta of <strong>' + Math.abs(a.th).toFixed(3) + '</strong> is <strong>' + thetaPctStr + '%</strong> of your Delta. On a ' + styleName + ' that number is informational rather than a gate. ' + S.thetaWhy +
+        '</div>'
+      : '') +
+    (a.q4 === true
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Theta is within range.</div>' +
+          'Your Theta of <strong>' + Math.abs(a.th).toFixed(3) + '</strong> is <strong>' + thetaPctStr + '%</strong> of your Delta, under the 50% mark. Decay is not eating the position faster than the move can pay you.' +
+        '</div>'
+      : '') +
+    (a.q4 === false
+      ? '<div class="q-feedback no-fb">' +
+          '<div class="fb-title">🚫 Theta is too high for a ' + styleName + '.</div>' +
+          'Your Theta of <strong>' + Math.abs(a.th).toFixed(3) + '</strong> is <strong>' + thetaPctStr + '%</strong> of your Delta, above the 50% mark. Decay is eroding the position faster than a directional move can make up for.' +
+        '</div>'
+      : '');
   c.appendChild(q4div);
 
-  // ── Q5: Risk ─────────────────────────────────────────────────────────
-  const q5ev = state.q5portfolio !== '' && state.q5premium !== ''
-    && !isNaN(parseFloat(state.q5portfolio)) && !isNaN(parseFloat(state.q5premium))
-    && parseFloat(state.q5portfolio) > 0;
-  const rp = a.riskPct5;
-
+  /* ── Q5: Premium vs portfolio ──────────────────────────────────────── */
+  const rp = a.riskPct;
   let riskClass = '';
   let riskMsg = '';
-  if (q5ev && rp !== null) {
-    if (rp < 2)      { riskClass = 'warn'; riskMsg = 'Under 2% — conservative, consider sizing up slightly'; }
-    else if (rp > 5) { riskClass = 'fail'; riskMsg = rp.toFixed(1) + '% — above the recommended 2–5% cap'; }
-    else             { riskClass = 'pass'; riskMsg = rp.toFixed(1) + '% — right in the 2–5% sweet spot'; }
+  if (S && rp !== null) {
+    if (rp > S.premiumMax) { riskClass = 'fail'; riskMsg = 'above the ' + S.premiumMax + '% cap for a ' + styleName; }
+    else if (rp < 2) { riskClass = 'warn'; riskMsg = 'under 2%, which is conservative but fine'; }
+    else { riskClass = 'pass'; riskMsg = 'inside the range for a ' + styleName; }
   }
 
   const q5div = document.createElement('div');
-  q5div.className = cardCls(q5ev ? a.q5 : null);
-  q5div.innerHTML = `
-    <div class="q-main">
-      <div class="${numCls(q5ev ? a.q5 : null)}">5</div>
-      <div class="q-body">
-        <span class="q-hint">Risk Management</span>
-        <div class="q-text">Is my premium within my risk budget?</div>
-        <div class="q-note">We recommend 2–5% of your portfolio per trade. Never risk more than you can afford to lose.</div>
-        <div class="input-row">
-          <div class="input-group">
-            <label>Portfolio Size ($)</label>
-            <div class="num-input-wrap">
-              <span class="num-prefix">$</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="10000"
-                id="inp-q5port" value="${state.q5portfolio}"
-                oninput="state.q5portfolio=this.value;render();"
-                style="width:105px" />
-            </div>
-          </div>
-          <div class="input-group">
-            <label>Premium Cost ($)</label>
-            <div class="num-input-wrap">
-              <span class="num-prefix">$</span>
-              <input class="num-input" type="text" inputmode="decimal" placeholder="300"
-                id="inp-q5prem" value="${state.q5premium}"
-                oninput="state.q5premium=this.value;render();"
-                style="width:105px" />
-            </div>
-          </div>
-        </div>
-        ${q5ev ? `
-        <div class="risk-display ${riskClass} show">
-          <span class="risk-pct">${rp.toFixed(1)}%</span>
-          <span>of portfolio at risk &nbsp;·&nbsp; ${riskMsg}</span>
-        </div>` : ''}
-      </div>
-    </div>
-    ${q5ev && rp <= 5 && rp >= 2 ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">✅ Risk is sized appropriately.</div>
-      At <strong>${rp.toFixed(1)}%</strong> of your portfolio, you're within the recommended 2–5% range. Treating the premium as money you're prepared to lose entirely is the mindset that keeps you in the game long-term. One bad trade should never force you out of the market — and at this size, it won't.
-    </div>` : ''}
-    ${q5ev && rp < 2 ? `
-    <div class="q-feedback yes-fb show">
-      <div class="fb-title">🟡 You're being conservative — that's okay.</div>
-      At <strong>${rp.toFixed(1)}%</strong>, your position is below the 2–5% range we recommend. This is fine, especially when you're learning. Just know the dollar upside will be proportionally small. Consider sizing up slightly once you're comfortable.
-    </div>` : ''}
-    ${q5ev && rp > 5 ? `
-    <div class="q-feedback no-fb show">
-      <div class="fb-title">🚫 Risk exceeds the recommended 5% cap.</div>
-      At <strong>${rp.toFixed(1)}%</strong> of your portfolio, this trade is oversized. Options can and do go to zero. Oversizing leads to emotional decisions — holding too long hoping for recovery, or panic-selling at the worst moment. Reduce your position size before entering.
-    </div>` : ''}
-  `;
+  q5div.className = cardCls(a.q5);
+  q5div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q5) + '">5</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Risk Management</span>' +
+        '<div class="q-text">Is my premium within my risk budget?</div>' +
+        '<div class="q-note">' + (S ? S.premiumWhy : 'Pick a trade style to see your cap.') + '</div>' +
+        '<div class="input-row">' +
+          '<div class="input-group">' +
+            '<label>Portfolio Size ($)</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">$</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="10000"' +
+                ' id="inp-q5port" value="' + state.q5portfolio + '"' +
+                ' oninput="state.q5portfolio=this.value;render();" style="width:105px" />' +
+            '</div>' +
+          '</div>' +
+          '<div class="input-group">' +
+            '<label>Premium Cost ($)</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">$</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="300"' +
+                ' id="inp-q5prem" value="' + state.q5premium + '"' +
+                ' oninput="state.q5premium=this.value;render();" style="width:105px" />' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        (rp !== null && S
+          ? '<div class="risk-display ' + riskClass + '">' +
+              '<span class="risk-pct">' + rp.toFixed(1) + '%</span>' +
+              '<span>of portfolio at risk &nbsp;·&nbsp; ' + riskMsg + '</span>' +
+            '</div>'
+          : '') +
+      '</div>' +
+    '</div>' +
+    (a.q5 === true && rp >= 2
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Risk is sized appropriately.</div>' +
+          'At <strong>' + rp.toFixed(1) + '%</strong> of your portfolio you are inside the cap for a ' + styleName + '. Treating the premium as money you are prepared to lose entirely is the mindset that keeps you in the game. One bad trade should never push you out of the market, and at this size it will not.' +
+        '</div>'
+      : '') +
+    (a.q5 === true && rp < 2
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">🟡 On the conservative side, and that is fine.</div>' +
+          'At <strong>' + rp.toFixed(1) + '%</strong> you are below where most of the range sits. Nothing wrong with that while you are learning. Just know the dollar upside will be proportionally small.' +
+        '</div>'
+      : '') +
+    (a.q5 === false
+      ? '<div class="q-feedback no-fb">' +
+          '<div class="fb-title">🚫 Premium is above the ' + S.premiumMax + '% cap.</div>' +
+          'At <strong>' + rp.toFixed(1) + '%</strong> of your portfolio this position is oversized for a ' + styleName + '. Options can and do go to zero. Oversizing is what leads to holding too long hoping for a recovery, or selling in a panic at the worst moment. Bring the size down before you enter.' +
+        '</div>'
+      : '');
   c.appendChild(q5div);
 
-  // Restore focus
+  /* ── Q6: Open Interest ─────────────────────────────────────────────── */
+  const q6div = document.createElement('div');
+  q6div.className = cardCls(a.q6);
+  q6div.innerHTML =
+    '<div class="q-main">' +
+      '<div class="' + numCls(a.q6) + '">6</div>' +
+      '<div class="q-body">' +
+        '<span class="q-hint">Liquidity</span>' +
+        '<div class="q-text">Is Open Interest at least ' + OI_MIN + '?</div>' +
+        '<div class="q-note">Open Interest tells you whether other people are actually trading this contract. It is the same target for every style.</div>' +
+        '<div class="input-row">' +
+          '<div class="input-group">' +
+            '<label>Open Interest</label>' +
+            '<div class="num-input-wrap">' +
+              '<span class="num-prefix">OI</span>' +
+              '<input class="num-input" type="text" inputmode="decimal" placeholder="500"' +
+                ' id="inp-q6oi" value="' + state.q6oi + '"' +
+                ' oninput="state.q6oi=this.value;render();" style="width:95px" />' +
+            '</div>' +
+          '</div>' +
+          (a.q6 !== null
+            ? '<span class="eval-tag ' + (a.q6 ? 'pass' : 'fail') + '">' + (a.q6 ? '✓ Liquid enough' : '✗ Below ' + OI_MIN) + '</span>'
+            : '') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    (a.q6 === true
+      ? '<div class="q-feedback yes-fb">' +
+          '<div class="fb-title">✅ Liquid enough to get out.</div>' +
+          'Open Interest of <strong>' + a.oi + '</strong> means there is real activity in this contract. The spread between bid and ask should be tight enough that you can close the position when you want to, not when someone finally shows up.' +
+        '</div>'
+      : '') +
+    (a.q6 === false
+      ? '<div class="q-feedback no-fb">' +
+          '<div class="fb-title">🚫 Open Interest is low. Recommended is ' + OI_MIN + ' or more.</div>' +
+          'Open Interest of <strong>' + a.oi + '</strong> is thin. Getting in is rarely the problem, getting out is. A wide bid-ask spread eats into your profit on the way out, and in a fast move you may not find a buyer near the price you expect. Look for a strike or expiration with more activity.' +
+        '</div>'
+      : '');
+  c.appendChild(q6div);
+
+  /* ── restore focus ─────────────────────────────────────────────────── */
   if (focusedId) {
     const el = document.getElementById(focusedId);
     if (el) {
       el.focus();
       if (cursorPos !== null && el.setSelectionRange) {
-        try { el.setSelectionRange(cursorPos, cursorPos); } catch(e) {}
+        try { el.setSelectionRange(cursorPos, cursorPos); } catch (e) {}
       }
     }
   }
 
-  updateScore(a);
+  renderFlags(a);
 }
 
-function updateScore(a) {
-  const answers = [
-    state.q1 !== null ? true : null,
-    (state.q2delta !== '' && !isNaN(parseFloat(state.q2delta))) ? a.q2 : null,
-    state.q3,
-    state.q4theta !== '' ? a.q4 : null,
-    (state.q5portfolio !== '' && state.q5premium !== '') ? a.q5 : null
+/* ── flagged panel ───────────────────────────────────────────────────── */
+function renderFlags(a) {
+  const panel = document.getElementById('flagPanel');
+  const rw = document.getElementById('resetWrap');
+  const S = state.style ? STYLES[state.style] : null;
+
+  const anyAnswered = state.style !== null && (
+    state.q1 !== null || state.q2delta !== '' || state.q3dte !== '' ||
+    (state.q4theta !== '' && state.q4theta !== '-') ||
+    state.q5portfolio !== '' || state.q5premium !== '' || state.q6oi !== ''
+  );
+  rw.className = anyAnswered ? 'reset-wrap show' : 'reset-wrap';
+
+  if (!S) { panel.className = 'flag-panel'; return; }
+
+  const checks = [
+    { v: a.q1, label: 'Thesis', msg: 'No direction picked yet. Bullish or bearish decides whether you are looking at a call or a put.' },
+    { v: a.q2, label: 'Delta', msg: 'Delta is outside ' + fmtDelta(S.delta) + ' for a ' + S.label.toLowerCase() + '.' },
+    { v: a.q3, label: 'Expiration', msg: 'Days to expiration is outside ' + fmtDte(S.dte) + ' for a ' + S.label.toLowerCase() + '.' },
+    { v: a.q4, label: 'Theta', msg: 'Theta is more than half your Delta.' },
+    { v: a.q5, label: 'Premium', msg: 'Premium is above the ' + S.premiumMax + '% cap for a ' + S.label.toLowerCase() + '.' },
+    { v: a.q6, label: 'Open Interest', msg: 'Open Interest is below the recommended ' + OI_MIN + '.' }
   ];
-  const allDone = answers.every(x => x !== null);
-  const yeses = answers.filter(x => x === true).length;
 
-  const panel  = document.getElementById('scorePanel');
-  const rw     = document.getElementById('resetWrap');
-  if (!allDone) { panel.classList.remove('show'); rw.style.display = 'none'; return; }
+  const flagged = checks.filter(function (c) { return c.v === false; });
+  const unanswered = checks.filter(function (c) { return c.v === null; });
 
-  panel.classList.add('show');
-  rw.style.display = 'block';
-  panel.className = 'score-panel show ' + (yeses === 5 ? 'all-pass' : yeses <= 1 ? 'all-fail' : 'partial');
+  if (!anyAnswered) { panel.className = 'flag-panel'; return; }
 
-  document.getElementById('scoreNum').textContent = yeses + ' / 5';
-  const pct = Math.round((yeses / 5) * 100);
-  document.getElementById('scorePct').textContent = pct + '%';
-
-  const bar = document.getElementById('scoreBar');
-  bar.style.width = '0%';
-  setTimeout(() => { bar.style.width = pct + '%'; }, 50);
-  bar.style.background = yeses === 5 ? '#0D9E6E' : yeses <= 1 ? '#D94F2A' : '#F5853F';
-
-  const badge = document.getElementById('verdictBadge');
-  const sub   = document.getElementById('scoreSub');
-  if (yeses === 5)     { badge.textContent = '✓ Ready to Trade'; badge.className = 'verdict-badge badge-pass'; sub.textContent = "All checks passed — you've done the work."; }
-  else if (yeses === 4){ badge.textContent = '⚡ Almost Ready';  badge.className = 'verdict-badge badge-warn'; sub.textContent = 'One concern to resolve before entering.'; }
-  else if (yeses >= 2) { badge.textContent = '⚠️ Not Yet';       badge.className = 'verdict-badge badge-warn'; sub.textContent = 'Multiple issues — revisit before trading.'; }
-  else                 { badge.textContent = '🚫 Do Not Trade';  badge.className = 'verdict-badge badge-stop'; sub.textContent = 'Too many red flags. Protect your capital.'; }
-
-  const labels = ['Thesis','Delta','Expiry','Theta','Risk'];
-  document.getElementById('breakdown').innerHTML = answers.map((v, i) =>
-    `<span class="bd-pill ${v ? 'bd-yes' : 'bd-no'}">${v ? '✓' : '✗'} ${labels[i]}</span>`
-  ).join('');
+  if (flagged.length > 0) {
+    panel.className = 'flag-panel show flagged';
+    panel.innerHTML =
+      '<div class="flag-eyebrow">Needs another look</div>' +
+      '<div class="flag-title">' + flagged.length + (flagged.length === 1 ? ' check is' : ' checks are') + ' outside the range for a ' + S.label.toLowerCase() + '</div>' +
+      '<div class="flag-list">' +
+        flagged.map(function (c) {
+          return '<div class="flag-item"><span class="flag-x">✗</span><span><strong>' + c.label + '</strong> · ' + c.msg + '</span></div>';
+        }).join('') +
+      '</div>' +
+      (unanswered.length > 0
+        ? '<div class="flag-item" style="margin-top:0.85rem;color:#9a7a55"><span>Still open: ' + unanswered.map(function (c) { return c.label; }).join(', ') + '</span></div>'
+        : '');
+  } else if (unanswered.length > 0) {
+    panel.className = 'flag-panel show flagged';
+    panel.innerHTML =
+      '<div class="flag-eyebrow">Nothing flagged so far</div>' +
+      '<div class="flag-title">Keep going</div>' +
+      '<div class="flag-item" style="color:#9a7a55"><span>Still to check: ' + unanswered.map(function (c) { return c.label; }).join(', ') + '</span></div>';
+  } else {
+    panel.className = 'flag-panel show clean';
+    panel.innerHTML =
+      '<div class="flag-eyebrow">Nothing flagged</div>' +
+      '<div class="flag-title">Every check is inside the range for a ' + S.label.toLowerCase() + '</div>' +
+      '<div class="flag-sub">This checklist covers the contract. It does not cover the chart. Before you place the order, make sure the setup itself holds up in the Setup module, and know your exit before you enter.</div>';
+  }
 }
 
+/* ── handlers ────────────────────────────────────────────────────────── */
+function setStyle(id) {
+  state.style = state.style === id ? null : id;
+  render();
+}
 function setQ1(val) {
   state.q1 = state.q1 === val ? null : val;
   render();
 }
-
 function resetAll() {
-  Object.assign(state, { q1: null, q2delta: '', q3: null, q4theta: '', q5portfolio: '', q5premium: '' });
+  Object.assign(state, {
+    style: null, q1: null, q2delta: '', q3dte: '',
+    q4theta: '', q5portfolio: '', q5premium: '', q6oi: ''
+  });
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
